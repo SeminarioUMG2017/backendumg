@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seminarioUMG.methods.Mailer;
+import com.seminarioUMG.seminario.methods.Mailer;
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.services.AlumnoService;
@@ -27,8 +27,8 @@ public class AlumnoController {
 	
 	@Autowired
 	AlumnoService alumnoService;
-	
-
+	@Autowired
+	Mailer mailer;
 	
 	
 
@@ -40,8 +40,8 @@ public class AlumnoController {
     
     
     @GetMapping(value = "/mailer")
-    public void mail(@RequestBody Alumno alumno) throws IOException  {    
-
+    public void mail() throws IOException  {    
+mailer.executeMail();
 
     }
     

@@ -1,4 +1,4 @@
-package com.seminarioUMG.methods;
+package com.seminarioUMG.seminario.methods;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -38,10 +38,10 @@ public class Mailer {
 	 
 	 String to = "carlos1.zapeta@gmail.com";
 
-    String from = "noreply";
+    String from = "noreplyumg@gmail.com"; 
 
-    final String username = "carlos1.zapeta@gmail.com";
-    final String password = "C@f1_103";
+    final String username = "noreplyumg@gmail.com";
+    final String password = "SeminarioUMG2017";
 
     String host = "smtp.gmail.com";
 
