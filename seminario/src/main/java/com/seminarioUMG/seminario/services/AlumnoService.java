@@ -16,7 +16,7 @@ public interface AlumnoService extends JpaRepository<Alumno, Serializable>{
 
 	
 	List<Alumno> findAll();
-	Alumno getOne(Serializable arg0);
+	Alumno findOne(Serializable arg0);
 
 	 
 

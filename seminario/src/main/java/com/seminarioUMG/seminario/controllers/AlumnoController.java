@@ -1,10 +1,14 @@
 package  com.seminarioUMG.seminario.controllers;
 
 import java.io.IOException;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +20,7 @@ import com.seminarioUMG.seminario.methods.Mailer;
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.services.AlumnoService;
+
 
 
 
@@ -33,9 +38,17 @@ public class AlumnoController {
 	
 
     @PostMapping(value = "/addalumno")
-    public void addalumno(@RequestBody Alumno alumno)  {    
+    public ResponseEntity<Alumno> addalumno(@RequestBody Alumno alumno)  {    
     
-    	alumnoService.save(alumno);
+    	
+    	try
+    	{
+    		alumnoService.save(alumno);
+    		return new ResponseEntity<Alumno>(alumno, HttpStatus.OK);
+    		
+    	}catch(Exception e) {
+    		return new ResponseEntity<Alumno>(HttpStatus.BAD_REQUEST);
+    	}
     }
     
     
@@ -47,18 +60,42 @@ mailer.executeMail();
     
     
     @GetMapping(value = "/alumnos/{nocarnet}")
-    public Alumno getAlumnobyCurso(@PathVariable Integer nocarnet)  {
-    	Alumno alumno =  alumnoService.findOne(nocarnet);
-		return alumno;    
+    public ResponseEntity<Alumno> getAlumnobyCurso(@PathVariable Integer nocarnet)  {
+    	
+    	
+    	try
+    	{
+    		Alumno alumno =  alumnoService.findOne(nocarnet);
+    		return new ResponseEntity<Alumno>(alumno, HttpStatus.OK);
+    		
+    	}catch(Exception e) {
+    		return new ResponseEntity<Alumno>(HttpStatus.BAD_REQUEST);
+    	}
+    	
     	
     }
     
 
     @GetMapping(value = "/getalumnos")
-    public List<Alumno> getalumnos() throws IOException  {    
-    	List<Alumno> Alumnos = alumnoService.findAll();
-    
-		return Alumnos;
+    public ResponseEntity<List<Alumno>> getalumnos() throws IOException  {    
+    	try
+    	{
+    		List<Alumno> Alumnos = alumnoService.findAll();
+    		if(Alumnos.size()==0)
+    		{
+    			return new ResponseEntity<List<Alumno>>(HttpStatus.NO_CONTENT);
+    		}
+    		else
+    		{
+    			return new ResponseEntity<List<Alumno>>(Alumnos, HttpStatus.OK);
+    		}
+    		
+    	}catch(Exception e) {
+    		return new ResponseEntity<List<Alumno>>(HttpStatus.BAD_REQUEST);
+    	}
+    	
+    		
+		
 		
     
     	
