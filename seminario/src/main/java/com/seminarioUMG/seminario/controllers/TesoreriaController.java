@@ -42,7 +42,7 @@ public class TesoreriaController {
 		 }
 		 else if (hoy.isPresent()){
 			 
-			 ingresos = serviceTesoreria.findByTipoAndFecha(tipo,new Date());
+//			 ingresos = serviceTesoreria.findByTipoAndFecha(tipo,new Date());
 		 }
 		
 		 return ingresos;
@@ -58,19 +58,22 @@ public class TesoreriaController {
 		 List<CardexTesoreria> ingresos = null;
 		 if(tipo.isPresent())
 		 {
-			 SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-			 SimpleDateFormat formatoHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+			 SimpleDateFormat formatoHora = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			 Date fecha = new Date();
-			 String fechaConvertida = null;
-			 fechaConvertida = formatoFecha.format(fecha);
-			 LOG.info("Fecha "+fechaConvertida.toString());
+			 String fechaConvertidaI = null;
+			 String fechaConvertidaF = null;
+			 fechaConvertidaI = formatoFecha.format(fecha);
+			 LOG.info("Fecha "+fechaConvertidaI.toString());
+//			 fechaConvertidaF =fechaConvertidaI.concat(" 23:59:59");
+			 fechaConvertidaI=fechaConvertidaI.concat(" 00:00:00");
 			 
-			 fechaConvertida=fechaConvertida.concat(" 00:00:00");
-			 
-			 Date fechaI= formatoHora.parse(fechaConvertida);
-			 LOG.info("fecha Inicial" +fechaI);
-			 
-			 ingresos = serviceTesoreria.findByTipoAndFecha(tipo,new Date());
+			 Date fechaI= formatoHora.parse(fechaConvertidaI);
+			 LOG.info("fecha Inicial" +fechaConvertidaI);
+//			 Date fechaF = formatoHora.parse(fechaConvertidaF);
+//			 LOG.info("fecha Final" +fechaF.toString());
+//			 
+			 ingresos = serviceTesoreria.findByTipoAndFechaBetweenEst(tipo);
 		 
 		 }
 		 return ingresos;
