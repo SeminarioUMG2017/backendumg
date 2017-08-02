@@ -51,7 +51,7 @@ public class AlumnoController {
     	}
     }
     
-    
+
     
     @GetMapping(value = "/alumnos/{nocarnet}")
     public ResponseEntity<Alumno> getAlumnobyCurso(@PathVariable String nocarnet)  {
