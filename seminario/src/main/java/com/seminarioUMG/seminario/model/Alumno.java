@@ -6,25 +6,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name ="alumno")
 public class Alumno { 
 
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@Column (name = "nocarnet")
-	private Integer NoCarnet;
+	private String NoCarnet;
 	@Column (name = "nombres")
 	private String nombres;
 	@Column (name = "apellidos")
 	private String apellidos;
 	@Column (name = "correo")
 	private String correo;
-	public Integer getNoCarnet() {
+	public String getNoCarnet() {
 		return NoCarnet;
 	}
-	public void setNoCarnet(Integer noCarnet) {
+	public void setNoCarnet(String noCarnet) {
 		NoCarnet = noCarnet;
 	}
 	public String getNombres() {
@@ -45,7 +48,7 @@ public class Alumno {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public Alumno(Integer noCarnet, String nombres, String apellidos, String correo) {
+	public Alumno(String noCarnet, String nombres, String apellidos, String correo) {
 		super();
 		NoCarnet = noCarnet;
 		this.nombres = nombres;
@@ -53,8 +56,10 @@ public class Alumno {
 		this.correo = correo;
 	}
 	public Alumno() {
-		
+
 	}
+	
+	
 	
 	
 	

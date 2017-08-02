@@ -52,15 +52,9 @@ public class AlumnoController {
     }
     
     
-    @GetMapping(value = "/mailer")
-    public void mail() throws IOException  {    
-mailer.executeMail();
-
-    }
-    
     
     @GetMapping(value = "/alumnos/{nocarnet}")
-    public ResponseEntity<Alumno> getAlumnobyCurso(@PathVariable Integer nocarnet)  {
+    public ResponseEntity<Alumno> getAlumnobyCurso(@PathVariable String nocarnet)  {
     	
     	
     	try
