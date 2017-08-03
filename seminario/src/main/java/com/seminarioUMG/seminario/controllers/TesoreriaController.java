@@ -28,24 +28,67 @@ public class TesoreriaController {
 	private static Logger LOG = LoggerFactory.getLogger(TesoreriaController.class);
 	@Autowired TesoreriaService serviceTesoreria;
 	
-	 @GetMapping(value = {"/ingresos/","/ingresos/{tipo}", "/ingresos/{clase}/{dateI}",
-			 "/ingresos/{clase}/{dateI}/{dateF}" })
-	 public List<CardexTesoreria> obtenerTodosIngresos(@PathVariable("tipo") Optional<Long> tipo, 
-			 @PathVariable("dateI") Optional<Date> dateI, @PathVariable("dateF") Optional<Date> dateF, 
-			 @PathVariable("hoy") Optional<Integer> hoy){
+	 @GetMapping(value = {"/rubro/{rubro}" })
+	 public List<CardexTesoreria> obtenerTodosIngresos(@PathVariable("rubro") Optional<Long> tipo) throws ParseException{
 	
 		 List<CardexTesoreria> ingresos = null;
-		
-		 if(!tipo.isPresent() && !dateI.isPresent() && !dateF.isPresent() && !hoy.isPresent())
+		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		 
+		 
+		 
+		 if(tipo.isPresent())
 		 {
 			 ingresos = serviceTesoreria.findByTipo(tipo);
 		 }
-		 else if (hoy.isPresent()){
-			 
-//			 ingresos = serviceTesoreria.findByTipoAndFecha(tipo,new Date());
-		 }
-		
+		 
 		 return ingresos;
+	 }
+	 @GetMapping(value = {"/ingresosFecha/{fechaI}" })
+	 public List<CardexTesoreria> obtenerTodosIngresosInicial(@PathVariable("fechaI") String fechaI) throws ParseException{
+		 List<CardexTesoreria> ingresos = null;
+		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		 Long tipo =(long) 1;
+		 Date fecha = formatoFecha.parse(fechaI);
+		 ingresos = serviceTesoreria.findByTipoAndFechaI(tipo, fecha);
+		return ingresos;
+	 }
+	 
+	 @GetMapping(value = {"/ingresosRangoFecha/{fechaI}/{fechaF}" })
+	 public List<CardexTesoreria> obtenerTodosIngresosRango(@PathVariable("fechaI") String fechaI, @PathVariable("fechaF") String fechaF ) throws ParseException{
+	 		
+		 List<CardexTesoreria> ingresos = null;
+		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		 fechaI = fechaI.concat(" 00:00:00");
+		 fechaF = fechaF.concat(" 23:59:59");
+		 
+		 Long tipo =(long) 1;
+		 ingresos = serviceTesoreria.findByTipoAndFechaBetween(tipo, formatoFecha.parse(fechaI), formatoFecha.parse(fechaF));
+		return ingresos;
+	 }
+	 
+	 
+	 @GetMapping(value = {"/egresosFecha/{fechaI}" })
+	 public List<CardexTesoreria> obtenerTodosEgresosInicial(@PathVariable("fechaI") String fechaI) throws ParseException{
+		 List<CardexTesoreria> ingresos = null;
+		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		 Long tipo =(long) 2;
+		 Date fecha = formatoFecha.parse(fechaI);
+		 ingresos = serviceTesoreria.findByTipoAndFechaI(tipo, fecha);
+		return ingresos;
+	 }
+	 
+	 @GetMapping(value = {"/egresosRangoFecha/{fechaI}/{fechaF}" })
+	 public List<CardexTesoreria> obtenerTodosEgresosRango(@PathVariable("fechaI") String fechaI, @PathVariable("fechaF") String fechaF ) throws ParseException{
+	 		
+		 List<CardexTesoreria> ingresos = null;
+		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		 fechaI = fechaI.concat(" 00:00:00");
+		 fechaF = fechaF.concat(" 23:59:59");
+		 
+		 Long tipo =(long) 2;
+		 LOG.info("Fecha final "+formatoFecha.parse(fechaF));
+		 ingresos = serviceTesoreria.findByTipoAndFechaBetween(tipo, formatoFecha.parse(fechaI), formatoFecha.parse(fechaF));
+		return ingresos;
 	 }
 	 
 	 @PostMapping(value = "/addIngreso")
@@ -58,21 +101,7 @@ public class TesoreriaController {
 		 List<CardexTesoreria> ingresos = null;
 		 if(tipo.isPresent())
 		 {
-			 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-			 SimpleDateFormat formatoHora = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			 Date fecha = new Date();
-			 String fechaConvertidaI = null;
-			 String fechaConvertidaF = null;
-			 fechaConvertidaI = formatoFecha.format(fecha);
-			 LOG.info("Fecha "+fechaConvertidaI.toString());
-//			 fechaConvertidaF =fechaConvertidaI.concat(" 23:59:59");
-			 fechaConvertidaI=fechaConvertidaI.concat(" 00:00:00");
 			 
-			 Date fechaI= formatoHora.parse(fechaConvertidaI);
-			 LOG.info("fecha Inicial" +fechaConvertidaI);
-//			 Date fechaF = formatoHora.parse(fechaConvertidaF);
-//			 LOG.info("fecha Final" +fechaF.toString());
-//			 
 			 ingresos = serviceTesoreria.findByTipoAndFechaBetweenEst(tipo);
 		 
 		 }
