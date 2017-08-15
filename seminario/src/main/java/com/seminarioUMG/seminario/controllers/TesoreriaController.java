@@ -28,13 +28,11 @@ public class TesoreriaController {
 	private static Logger LOG = LoggerFactory.getLogger(TesoreriaController.class);
 	@Autowired TesoreriaService serviceTesoreria;
 	
-	 @GetMapping(value = {"/rubro/{rubro}" })
+	 @GetMapping(value = {"/rubro/{tipo}" })
 	 public List<CardexTesoreria> obtenerTodosIngresos(@PathVariable("rubro") Optional<Long> tipo) throws ParseException{
 	
 		 List<CardexTesoreria> ingresos = null;
 		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-		 
-		 
 		 
 		 if(tipo.isPresent())
 		 {

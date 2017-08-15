@@ -20,8 +20,6 @@ public class CardexTesoreria {
 	private Long idCardex;
 	@Column(name = "descripcion")
 	private String descripcion;
-	@Column(name="clase")
-	private Long clase;
 	@Column(name="tipo")
 	private Long tipo;
 	@Column(name="fecha")
@@ -39,7 +37,6 @@ public class CardexTesoreria {
 		super();
 		this.idCardex = idCardex;
 		this.descripcion = descripcion;
-		this.clase = clase;
 		this.tipo = tipo;
 		this.fecha = fecha;
 		this.monto = monto;
@@ -68,12 +65,7 @@ public class CardexTesoreria {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Long getClase() {
-		return clase;
-	}
-	public void setClase(Long clase) {
-		this.clase = clase;
-	}
+
 	public Long getTipo() {
 		return tipo;
 	}

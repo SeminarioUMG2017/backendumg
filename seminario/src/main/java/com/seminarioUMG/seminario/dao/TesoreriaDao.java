@@ -160,13 +160,6 @@ public class TesoreriaDao implements TesoreriaService {
 	}
 
 
-
-	@Override
-	public List<CardexTesoreria> findByClase(Optional<Long> clase) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public List<CardexTesoreria> findByTipo(Optional<Long> tipo) {
 		// TODO Auto-generated method stub

@@ -52,6 +52,10 @@ public class AlumnoController {
     }
     
 
+    @GetMapping(value = "/alumnoslogin")
+    public ResponseEntity<Alumno> validateAlumno(){
+    	return null;
+    }
     
     @GetMapping(value = "/alumnos/{nocarnet}")
     public ResponseEntity<Alumno> getAlumnobyCurso(@PathVariable String nocarnet)  {

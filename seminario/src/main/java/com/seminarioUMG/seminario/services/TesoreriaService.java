@@ -15,7 +15,6 @@ import com.seminarioUMG.seminario.model.CardexTesoreria;
 public interface TesoreriaService extends JpaRepository<CardexTesoreria, Serializable>{
 	
 	List<CardexTesoreria> findByTipo(Optional<Long> tipo);
-	List<CardexTesoreria> findByClase(Optional<Long> clase);
 	
 	@Query("Select ct from CardexTesoreria ct where ct.tipo=?1 and ct.fecha>=?2")
 	List<CardexTesoreria> findByTipoAndFechaI(Long tipo, Date fecha);
