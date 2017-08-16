@@ -3,6 +3,7 @@ package  com.seminarioUMG.seminario.controllers;
 import java.io.IOException;
 
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seminarioUMG.seminario.methods.GeneradorQr;
 import com.seminarioUMG.seminario.methods.Mailer;
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
@@ -34,7 +36,7 @@ public class AlumnoController {
 	AlumnoService alumnoService;
 	@Autowired
 	Mailer mailer;
-	
+	@Autowired GeneradorQr generador;
 	
 
     @PostMapping(value = "/addalumno")
@@ -43,7 +45,10 @@ public class AlumnoController {
     	
     	try
     	{
-    		alumnoService.save(alumno);
+    		
+    		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
+    		
+    		Alumno save = alumnoService.save(alumno);
     		return new ResponseEntity<Alumno>(alumno, HttpStatus.OK);
     		
     	}catch(Exception e) {
