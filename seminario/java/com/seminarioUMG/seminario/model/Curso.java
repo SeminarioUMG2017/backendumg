@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -17,20 +19,22 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Curso {
 	
 
+
 	@Id
-	@GeneratedValue
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2") 
 	@Column (name = "id_curso")
-	private Integer idCurso;
+	private String idCurso;
 	@Column (name = "nombre")
 	private String nombre;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_catedratico")
 	@JsonBackReference
 	private Catedratico catedratico;
-	public Integer getIdCurso() {
+	public String getIdCurso() {
 		return idCurso;
 	}
-	public void setIdCurso(Integer idCurso) {
+	public void setIdCurso(String idCurso) {
 		this.idCurso = idCurso;
 	}
 	public String getNombre() {
@@ -45,14 +49,14 @@ public class Curso {
 	public void setCatedratico(Catedratico catedratico) {
 		this.catedratico = catedratico;
 	}
-	public Curso(Integer idCurso, String nombre, Catedratico catedratico) {
+	public Curso(String idCurso, String nombre, Catedratico catedratico) {
 		super();
-		this.idCurso = idCurso;
+		idCurso = idCurso;
 		this.nombre = nombre;
-		this.catedratico = catedratico;
+		this.catedratico = catedratico; 
 	}
 	public Curso() {
-		super();
+
 	}
 
 	

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,16 +17,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class AsignacionCursos {
 		@Id
-		@GeneratedValue
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column (name = "correlativo")
 		private Integer Correlativo;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne(fetch = FetchType.EAGER)
 		@JoinColumn(name = "id_curso")
 		@JsonBackReference
 		private Curso curso;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne(fetch = FetchType.EAGER)
 		@JoinColumn(name = "nocarnet") 
 		@JsonBackReference
 		private Alumno alumno;
@@ -41,7 +42,7 @@ public class AsignacionCursos {
 		}
 		public Curso getCurso() {
 			return curso;
-		}
+		} 
 		public void setCurso(Curso curso) {
 			this.curso = curso;
 		}

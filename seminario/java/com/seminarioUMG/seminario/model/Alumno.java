@@ -15,7 +15,7 @@ public class Alumno {
 	
 	@Id
 	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@GenericGenerator(name = "uuid", strategy = "uuid2") 
 	@Column (name = "nocarnet")
 	private String NoCarnet;
 	@Column (name = "nombres")
