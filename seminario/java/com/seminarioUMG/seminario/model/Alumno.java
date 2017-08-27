@@ -1,9 +1,15 @@
 package com.seminarioUMG.seminario.model;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -24,6 +30,12 @@ public class Alumno {
 	private String apellidos;
 	@Column (name = "correo")
 	private String correo;
+	
+	 @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumno")
+	private Set<AsignacionCursos> asignaciones;
+	
+	
+	
 	public String getNoCarnet() {
 		return NoCarnet;
 	}
@@ -48,16 +60,26 @@ public class Alumno {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public Alumno(String noCarnet, String nombres, String apellidos, String correo) {
+	public Set<AsignacionCursos> getAsignaciones() {
+		return asignaciones;
+	}
+	public void setAsignaciones(Set<AsignacionCursos> asignaciones) {
+		this.asignaciones = asignaciones;
+	}
+	public Alumno(String noCarnet, String nombres, String apellidos, String correo,
+			Set<AsignacionCursos> asignaciones) {
 		super();
 		NoCarnet = noCarnet;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
+		this.asignaciones = asignaciones;
 	}
 	public Alumno() {
-
+		
 	}
+	
+	
 	
 	
 	

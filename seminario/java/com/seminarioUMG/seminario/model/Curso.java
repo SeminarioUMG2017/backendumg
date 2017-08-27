@@ -1,5 +1,7 @@
 package com.seminarioUMG.seminario.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -25,12 +28,19 @@ public class Curso {
     @GenericGenerator(name = "uuid", strategy = "uuid2") 
 	@Column (name = "id_curso")
 	private String idCurso;
+	@Column (name = "seccion")
+	private String seccion;
 	@Column (name = "nombre")
 	private String nombre;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_catedratico")
 	@JsonBackReference
 	private Catedratico catedratico;
+	 @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
+		private List<AsignacionCursos> asignaciones;
+	
+	
+	
 	public String getIdCurso() {
 		return idCurso;
 	}
@@ -49,16 +59,23 @@ public class Curso {
 	public void setCatedratico(Catedratico catedratico) {
 		this.catedratico = catedratico;
 	}
-	public Curso(String idCurso, String nombre, Catedratico catedratico) {
+	public String getSeccion() {
+		return seccion;
+	}
+	public void setSeccion(String seccion) {
+		this.seccion = seccion;
+	}
+	public Curso(String idCurso, String seccion, String nombre, Catedratico catedratico) {
 		super();
-		idCurso = idCurso;
+		this.idCurso = idCurso;
+		this.seccion = seccion;
 		this.nombre = nombre;
-		this.catedratico = catedratico; 
+		this.catedratico = catedratico;
 	}
 	public Curso() {
-
 	}
 
+	
 	
 
 	

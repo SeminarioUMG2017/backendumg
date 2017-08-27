@@ -18,6 +18,7 @@ public interface AlumnoService extends JpaRepository<Alumno, Serializable>{
 	
 	public final static String GET_ALUMNOS_BY_LIKE = "SELECT al FROM Alumno al WHERE NoCarnet like :nocarnet||'%'";
 	public final static String GET_ALUMNOS_BY_COURSE = "select a from Alumno a  where a.NoCarnet = :idCurso";
+	public final static String GET_COURSE_BY_ALUMNO = "select u.userName from  u inner join u.area ar where ar.idArea = :idArea";
 
 
 	@Query(GET_ALUMNOS_BY_LIKE)   

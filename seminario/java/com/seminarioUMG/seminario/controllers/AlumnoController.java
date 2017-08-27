@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seminarioUMG.seminario.methods.GeneradorQr;
@@ -45,9 +47,6 @@ public class AlumnoController {
     	
     	try
     	{
-    		
-    		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
-    		
     		Alumno save = alumnoService.save(alumno);
     		return new ResponseEntity<Alumno>(alumno, HttpStatus.OK);
     		
@@ -62,8 +61,8 @@ public class AlumnoController {
     	return null;
     }
     
-    @GetMapping(value = "/alumnos/{nocarnet}")
-    public ResponseEntity<List<Alumno>> getAlumnobyCurso(@PathVariable String nocarnet)  {
+    @GetMapping(value = "/{nocarnet}")
+    public ResponseEntity<List<Alumno>> getAlumnobyLike(@PathVariable String nocarnet)  {
     	
     	try
     	{
@@ -79,7 +78,7 @@ public class AlumnoController {
     }
 
 
-    @GetMapping(value = "/getalumnos")
+    @GetMapping(value = "/getallalumnos")
     public ResponseEntity<List<Alumno>> getalumnos() throws IOException  {    
     	try
     	{
@@ -97,11 +96,40 @@ public class AlumnoController {
     		return new ResponseEntity<List<Alumno>>(HttpStatus.BAD_REQUEST);
     	}
     	
-    		
-		
-		
+    }
+
     
+    @PostMapping(value = "/adduseralumno")
+    public String createalumnoyser(@RequestParam String nocarnet, @RequestParam String correo) throws IOException  {    
+    	String apellido = null;
+    	Alumno alumno = alumnoService.findOne(nocarnet); 
+    	if (alumno != null) {
+    		apellido = 	alumno.getApellidos();
+        	alumno.setCorreo(correo);
+        	alumnoService.save(alumno);
+        	
+         	
+        	try
+        	{
+        		
+        		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
+        		mailer.executeMail(alumno.getCorreo());
+        		
+        		
+        	}catch(Exception e) {
+        		
+        	}
+        		
+    	}
+    	
+    	
+    	
+    	
+    	
+		return apellido	;
     	
     }
 
+    
+    
 }

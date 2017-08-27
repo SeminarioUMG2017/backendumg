@@ -28,7 +28,7 @@ public class GeneradorQr {
 	@Autowired QrService qrService;
 	public void inicioQr(String apellido, String correo, String carnet) {
 		GeneradorQr qr = new GeneradorQr();
-        File f = new File(carnet+".png");
+        File f = new File("/codigosqr"+carnet+".png");
        
  
         try {

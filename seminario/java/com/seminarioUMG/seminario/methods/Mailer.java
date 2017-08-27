@@ -1,3 +1,6 @@
+
+
+
 package com.seminarioUMG.seminario.methods;
 
 import java.io.IOException;
@@ -31,13 +34,13 @@ public class Mailer {
 	@Autowired
 	private TemplateEngine templateEngine;
 	
-	public void executeMail() throws IOException{
+	public void executeMail(String correo) throws IOException{
 	
 	 final Locale locale = null;
 	 final Context ctx = new Context(locale.US);
 	 final Context ctxno = new Context(locale.US);
 	 
-	 String to = "carlos1.zapeta@gmail.com";
+	 String to = correo;
 
     String from = "noreplyumg@gmail.com"; 
 
