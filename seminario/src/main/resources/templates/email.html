@@ -340,7 +340,7 @@
                                             <td class="headerContent">
                                             
                                             	<!-- // Begin Module: Standard Header Image \\ -->
-                                            	<img src="http://gallery.mailchimp.com/653153ae841fd11de66ad181a/images/placeholder_600.gif" style="max-width:600px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                                            	<img th:src="${qr}" style="max-width:600px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
                                             	<!-- // End Module: Standard Header Image \\ -->
                                             
                                             </td>
@@ -361,8 +361,9 @@
                                                     <tr>
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
-                                                                <h1 class="h1" th:text="{prueba}">Heading 1</h1>
-                                                                <h2 class="h2">Heading 2</h2>
+                                                                <h1 class="h1" th:text="${nocarnet}">Heading 1</h1>
+                                                                <img th:src="${qr}" alt="Smiley face" height="42" width="42">
+                                                                <h2 class="h2"> </h2>
                                                                 <h3 class="h3">Heading 3</h3>
                                                                 <h4 class="h4">Heading 4</h4>
                                                                 <strong>Getting started:</strong> Customize your template by clicking on the style editor tabs up above. Set your fonts, colors, and styles. After setting your styling is all done you can click here in this area, delete the text, and start adding your own awesome content!

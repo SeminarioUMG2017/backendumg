@@ -27,6 +27,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.seminarioUMG.seminario.model.Alumno;
+import com.seminarioUMG.seminario.model.Qr;
+import com.seminarioUMG.seminario.services.AlumnoService;
+import com.seminarioUMG.seminario.services.QrService;
+
 
 @Service
 public class Mailer {
@@ -34,13 +39,23 @@ public class Mailer {
 	@Autowired
 	private TemplateEngine templateEngine;
 	
-	public void executeMail(String correo) throws IOException{
+	@Autowired
+	AlumnoService alumnoService;
+	@Autowired
+	GeneradorQr generador;
+	@Autowired
+	QrService qrservice;
+	
+	public void executeMail(String nocarnet) throws IOException{
 	
 	 final Locale locale = null;
 	 final Context ctx = new Context(locale.US);
 	 final Context ctxno = new Context(locale.US);
 	 
-	 String to = correo;
+	 Alumno alumno = alumnoService.findOne(nocarnet);
+	 
+	 System.out.println("alumno "+alumno.getCorreo());
+	 String to = alumno.getCorreo();
 
     String from = "noreplyumg@gmail.com"; 
 
@@ -73,25 +88,21 @@ public class Mailer {
      	        message.setRecipients(Message.RecipientType.TO,
      	           InternetAddress.parse(to));
 
-     	        message.setSubject("Facebook Ads");
+     	        message.setSubject("Seminario UMG 2017");
 
      	        BodyPart messageBodyPart = new MimeBodyPart();
+ 
 
-
-     	        String logoTPP = "http://drive.google.com/uc?export=view&id="
-     	        		+ "0B1BhGir5QE7db3k5Z0RqM2FBeEE";
-
-     	   
+     	        Qr	qr = qrservice.findOne(nocarnet);
+     	        
+     	        String qrpath = qr.getRuta(); 	   
    
 
 
 
-//     	    	ctxno.setVariable("ultimoenvio", 1);
-//     	    	ctxno.setVariable("User", iUser.getDetailbyIdUser(idUser).getFirstName());
-//     	    	ctxno.setVariable("count", count);
-//     	    	ctxno.setVariable("si",2);
-//     	    	ctxno.setVariable("logoTPP", logoTPP);
-//     	     	ctxno.setVariable("camp", campaña.getCampname());	
+     	    	ctxno.setVariable("nocarnet", nocarnet);
+     	    	ctxno.setVariable("qr", qrpath);
+     	    
      	    	final String htmlContentno = this.templateEngine.process("email", ctxno);   	
      	    	
      	    	message.setContent(htmlContentno, "text/html; charset=utf-8");

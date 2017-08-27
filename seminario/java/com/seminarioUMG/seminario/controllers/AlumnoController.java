@@ -35,7 +35,7 @@ import com.seminarioUMG.seminario.services.AlumnoService;
 public class AlumnoController {
 	
 	@Autowired
-	AlumnoService alumnoService;
+	AlumnoService alumnoService; 
 	@Autowired
 	Mailer mailer;
 	@Autowired GeneradorQr generador;
@@ -113,11 +113,11 @@ public class AlumnoController {
         	{
         		
         		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
-        		mailer.executeMail(alumno.getCorreo());
+        		mailer.executeMail(nocarnet);
         		
         		
         	}catch(Exception e) {
-        		
+        		 e.printStackTrace();
         	}
         		
     	}

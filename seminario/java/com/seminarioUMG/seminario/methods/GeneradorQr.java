@@ -28,7 +28,7 @@ public class GeneradorQr {
 	@Autowired QrService qrService;
 	public void inicioQr(String apellido, String correo, String carnet) {
 		GeneradorQr qr = new GeneradorQr();
-        File f = new File("/codigosqr"+carnet+".png");
+        File f = new File("codigosqr/"+carnet+".png");
        
  
         try {
@@ -40,7 +40,7 @@ public class GeneradorQr {
             codigo.setNoCarnet(carnet);
             codigo.setCadena(texto);
             qrService.save(codigo);
-           
+            
             String qrString = qr.decoder(f);
             System.out.println("Text QRCode: " + qrString);
             
@@ -79,7 +79,7 @@ public class GeneradorQr {
  
     public String decoder(File file) throws Exception {
  
-        FileInputStream inputStream = new FileInputStream(file);
+        FileInputStream inputStream = new FileInputStream(file); 
  
         BufferedImage image = ImageIO.read(inputStream);
  

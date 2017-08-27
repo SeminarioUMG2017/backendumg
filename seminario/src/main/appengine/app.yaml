@@ -1,0 +1,12 @@
+runtime: java
+env: flex
+service: backend
+runtime_config:
+  jdk: openjdk8
+handlers:
+- url: /.*
+  script: this field is required, but ignored
+automatic_scaling:
+  max_num_instances: 1
+resources:
+  memory_gb: 1
