@@ -28,8 +28,19 @@ public class GeneradorQr {
 	@Autowired QrService qrService;
 	public void inicioQr(String apellido, String correo, String carnet) {
 		GeneradorQr qr = new GeneradorQr();
-        File f = new File(carnet+".png");
+		
+		File folder = new File("../alumnos/codigosqr");
+		
+		if (!folder.exists()) 
+			
+			folder.mkdirs();
+			
+		
        
+       
+		
+		
+		 File f = new File("../alumnos/codigosqr/"+carnet+".png");
  
         try {
         	String texto = apellido.concat(correo).concat(carnet);
