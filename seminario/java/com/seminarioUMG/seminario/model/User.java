@@ -21,7 +21,7 @@ public class User implements UserDetails  {
 static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", nullable = false, updatable = false)
 	private Long id;
 	
@@ -56,16 +56,20 @@ static final long serialVersionUID = 1L;
 		return true;
 	}
 
+	public String getUsername() {
+		return username;
+	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-	@Override
 	public String getPassword() {
 		return password;
 	}
 
-	@Override
-	public String getUsername() {
-		return username;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
@@ -73,5 +77,7 @@ static final long serialVersionUID = 1L;
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
 
 }

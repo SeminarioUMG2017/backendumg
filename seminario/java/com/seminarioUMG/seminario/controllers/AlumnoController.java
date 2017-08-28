@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.seminarioUMG.seminario.methods.GeneradorQr;
 import com.seminarioUMG.seminario.methods.Mailer;
+import com.seminarioUMG.seminario.methods.PasswordGenerator;
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
+import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.services.AlumnoService;
 
 
@@ -38,7 +40,10 @@ public class AlumnoController {
 	AlumnoService alumnoService; 
 	@Autowired
 	Mailer mailer;
-	@Autowired GeneradorQr generador;
+	@Autowired
+	PasswordGenerator passGenerate;
+	@Autowired 
+	GeneradorQr generador;
 	
 
     @PostMapping(value = "/addalumno")
@@ -103,6 +108,7 @@ public class AlumnoController {
     public String createalumnoyser(@RequestParam String nocarnet, @RequestParam String correo) throws IOException  {    
     	String apellido = null;
     	Alumno alumno = alumnoService.findOne(nocarnet); 
+    	User user = new User();
     	if (alumno != null) {
     		apellido = 	alumno.getApellidos();
         	alumno.setCorreo(correo);
@@ -114,6 +120,10 @@ public class AlumnoController {
         		
         		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
         		mailer.executeMail(nocarnet);
+        		
+        		
+        		System.out.println(passGenerate.getRandomPassword());
+        		
         		
         		
         	}catch(Exception e) {

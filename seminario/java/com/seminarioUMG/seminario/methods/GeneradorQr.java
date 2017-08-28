@@ -5,10 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -24,28 +27,32 @@ import com.seminarioUMG.seminario.model.Qr;
 import com.seminarioUMG.seminario.services.QrService;
 @Service
 public class GeneradorQr {
+
+
 	
 	@Autowired QrService qrService;
-	public void inicioQr(String apellido, String correo, String carnet) {
+	
+	@Autowired
+	ServletContext servletContext;
+	
+	
+	
+	public void inicioQr(String apellido, String correo, String carnet) throws IOException {
 		GeneradorQr qr = new GeneradorQr();
 		
-		File folder = new File("/media/codigosqr");
+
 		
-		if (!folder.exists()) 
-			
-			folder.mkdirs();
-			
 		
+		 File f = new File(servletContext.getRealPath("/")+carnet+".png");
        
-       
+	
 		
-		
-		 File f = new File("/media/codigosqr/"+carnet+".png");
-		 System.out.println("aqui se genero"+f.getPath());
  
         try {
         	String texto = apellido.concat(correo).concat(carnet);
-            qr.generateQR(f, texto, 300, 300);
+            qr.generateQR(f, texto, 300, 300); 
+           
+    	
             System.out.println("QRCode Generated: " + f.getAbsolutePath());
             Qr codigo = new Qr();
             codigo.setRuta(f.getAbsolutePath());
