@@ -29,7 +29,7 @@ public class GeneradorQr {
 	public void inicioQr(String apellido, String correo, String carnet) {
 		GeneradorQr qr = new GeneradorQr();
 		
-		File folder = new File("../alumnos/codigosqr");
+		File folder = new File("/media/codigosqr");
 		
 		if (!folder.exists()) 
 			
@@ -40,7 +40,8 @@ public class GeneradorQr {
        
 		
 		
-		 File f = new File("../alumnos/codigosqr/"+carnet+".png");
+		 File f = new File("/media/codigosqr/"+carnet+".png");
+		 System.out.println("aqui se genero"+f.getPath());
  
         try {
         	String texto = apellido.concat(correo).concat(carnet);
