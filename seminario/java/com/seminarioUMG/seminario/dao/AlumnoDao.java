@@ -23,7 +23,7 @@ import com.seminarioUMG.seminario.services.AlumnoService;
 public  class AlumnoDao implements AlumnoService {
 
 	@Autowired
-	EntityManager entityManager;
+	EntityManager entityManager; 
 
 	@Override
 	public void deleteAllInBatch() {

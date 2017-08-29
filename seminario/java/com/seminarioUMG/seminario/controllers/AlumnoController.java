@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.services.AlumnoService;
+import com.seminarioUMG.seminario.services.UserRepository;
 
 
 
@@ -41,10 +43,13 @@ public class AlumnoController {
 	@Autowired
 	Mailer mailer;
 	@Autowired
-	PasswordGenerator passGenerate;
+	PasswordGenerator pass ;
 	@Autowired 
 	GeneradorQr generador;
+	@Autowired
+	UserRepository userRepo;
 	
+
 
     @PostMapping(value = "/addalumno")
     public ResponseEntity<Alumno> addalumno(@RequestBody Alumno alumno)  {    
@@ -120,14 +125,13 @@ public class AlumnoController {
         		
         		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
         		mailer.executeMail(nocarnet);
-        		
-        		
-        		System.out.println(passGenerate.getRandomPassword());
-        		
-        		
-        		
+        		System.out.println(pass.genrar());
+        		user.setUsername(alumno.getNoCarnet());
+        		user.setPassword(pass.genrar());
+        		user.isEnabled();
+        		userRepo.save(user);
         	}catch(Exception e) {
-        		 e.printStackTrace();
+        		 e.printStackTrace(); 
         	}
         		
     	}

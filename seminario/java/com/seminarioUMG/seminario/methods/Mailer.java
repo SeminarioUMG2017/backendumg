@@ -54,7 +54,7 @@ public class Mailer {
 	 
 	 Alumno alumno = alumnoService.findOne(nocarnet);
 	 
-	 System.out.println("alumno "+alumno.getCorreo());
+	
 	 String to = alumno.getCorreo();
 
     String from = "noreplyumg@gmail.com"; 
