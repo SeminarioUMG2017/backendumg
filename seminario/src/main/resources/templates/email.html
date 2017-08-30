@@ -4,9 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         
         <!-- Facebook sharing information tags -->
-        <meta property="og:title" content="*|MC:SUBJECT|*" />
+        <meta property="og:title" content="Entrada Seminario 2017" />
         
-        <title>*|MC:SUBJECT|*</title>
+        <title>Entrada Seminario 2017</title>
 		<style type="text/css">
 			/* Client-specific Styles */
 			#outlook a{padding:0;} /* Force Outlook to provide a "view in browser" button. */
@@ -139,11 +139,18 @@
 			* @section preheader link
 			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
 			*/
-			.preheaderContent div a:link, .preheaderContent div a:visited, /* Yahoo! Mail Override */ .preheaderContent div a .yshortcuts /* Yahoo! Mail Override */{
+			.preheaderContent div , .preheaderContent div a:visited, /* Yahoo! Mail Override */ .preheaderContent div a .yshortcuts /* Yahoo! Mail Override */{
 				/*@editable*/ color:#336699;
 				/*@editable*/ font-weight:normal;
 				/*@editable*/ text-decoration:underline;
 			}
+			a:link{
+			
+			color:#FFFFFF !important;
+			
+			margin-top: 1%;
+			}
+			
 			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: HEADER /\/\/\/\/\/\/\/\/\/\ */
 			/**
 			* @tab Header
@@ -240,7 +247,7 @@
 			.footerContent div{
 				/*@editable*/ color:#707070;
 				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:12px;
+					/*@editable*/ font-size:25ppt;
 				/*@editable*/ line-height:125%;
 				/*@editable*/ text-align:left;
 			}
@@ -257,6 +264,9 @@
 			.footerContent img{
 				display:inline;
 			}
+			.boton{background-color:#3b5998 !important;border: 2px solid;
+    border-radius: 25px;}
+			.tablitafb{display:block;width:100%;height:30px; }
 			/**
 			* @tab Footer
 			* @section social bar style
@@ -313,16 +323,10 @@
                                     	<tr>
                                         	<td valign="top">
                                             	<div mc:edit="std_preheader_content">
-                                                	 Use this area to offer a short teaser of your email's content. Text here will show in the preview area of some email clients.
+                                                	
                                                 </div>
                                             </td>
-                                            <!-- *|IFNOT:ARCHIVE_PAGE|* -->
-											<td valign="top" width="190">
-                                            	<div mc:edit="std_preheader_links">
-                                                	Is this email not displaying correctly?<br /><a href="*|ARCHIVE|*" target="_blank">View it in your browser</a>.
-                                                </div>
-                                            </td>
-											<!-- *|END:IF|* -->
+
                                         </tr>
                                     </table>
                                 	<!-- // End Module: Standard Preheader \ -->
@@ -333,21 +337,7 @@
                         <!-- // End Template Preheader \\ -->
                     	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
                         	<tr>
-                            	<td align="center" valign="top">
-                                    <!-- // Begin Template Header \\ -->
-                                	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
-                                        <tr>
-                                            <td class="headerContent">
-                                            
-                                            	<!-- // Begin Module: Standard Header Image \\ -->
-                                            	<img th:src="${qr}" style="max-width:600px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
-                                            	<!-- // End Module: Standard Header Image \\ -->
-                                            
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Template Header \\ -->
-                                </td>
+                            	
                             </tr>
                         	<tr>
                             	<td align="center" valign="top">
@@ -361,22 +351,28 @@
                                                     <tr>
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
-                                                                <h1 class="h1" th:text="${nocarnet}">Heading 1</h1>
-                                                                <img th:src="${qr}" alt="Smiley face" height="42" width="42">
-                                                                <h2 class="h2"> </h2>
-                                                                <h3 class="h3">Heading 3</h3>
-                                                                <h4 class="h4">Heading 4</h4>
-                                                                <strong>Getting started:</strong> Customize your template by clicking on the style editor tabs up above. Set your fonts, colors, and styles. After setting your styling is all done you can click here in this area, delete the text, and start adding your own awesome content!
+                                                                <h1 class="h1" ><img th:src="${logo}" style="max-width:90px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                                                                OpenMind®</h1>
+                                                                <h2 class="h2" th:text="'HOLA'+ ${name}">Nombre</h2>
+                                                            
+                                                                <h4 class="h4"></h4>
+                                                                <strong>Instrucciones: </strong>En este correo podrás verificar tus credenciales de acceso a la pagina principal 
                                                                 <br />
                                                                 <br />
-                                                                After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "styles" drop down box. Want to <a href="http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change" target="_blank">get rid of styling on a bit of text</a>, but having trouble doing it? Just use the "remove formatting" button to strip the text of any formatting and reset your style.
+                                                                <strong>Usuario:</strong><span th:text="${user}">user</span>
+                                                                <br />
+                                                                <strong>Password: </strong><span th:text="${pass}">pass</span>
                                                             </div>
+					                               
 														</td>
+														
                                                     </tr>
                                                 </table>
+                                                
                                                 <!-- // End Module: Standard Content \\ -->
                                                 
                                             </td>
+                                            
                                         </tr>
                                     </table>
                                     <!-- // End Template Body \\ -->
@@ -391,36 +387,50 @@
                                             
                                                 <!-- // Begin Module: Standard Footer \\ -->
                                                 <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                                                 <tr>
+                            
+                               <td align="center" valign="top">
+					              <!-- // Begin Template Header \\ -->
+					           	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
+					                        <tr>
+					                        <td class="headerContent">
+					                                            
+					                                       	<!-- // Begin Module: Standard Header Image \\ -->
+					                       	<img th:src="${qr}" style="max-width:600px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+					                        	<!-- // End Module: Standard Header Image \\ -->
+					                                            
+					                     </td>
+					                   </tr>
+					             </table>
+					         <!-- // End Template Header \\ -->
+					        </td>
+                            
+                            </tr>
                                                     <tr>
-                                                        <td colspan="2" valign="middle" id="social">
-                                                            <div mc:edit="std_social">
-                                                                &nbsp;<a href="*|TWITTER:PROFILEURL|*">follow on Twitter</a> | <a href="*|FACEBOOK:PROFILEURL|*">friend on Facebook</a> | <a href="*|FORWARD|*">forward to a friend</a>&nbsp;
-                                                            </div>
-                                                        </td>
+                                                    <td colspan="2" valign="middle" id="social">	
+                                                    <div mc:edit="std_social">		
+														<h5 class="">Siguenos en :</h5>
+														<p class=""><a href="https://www.facebook.com/seminarioumg/" class="boton tablitafb ">Facebook</a></p>
+													</div>
+													</td>
+<!--                                                         <td colspan="2" valign="middle" id="social"> -->
+<!--                                                             <div mc:edit="std_social"> -->
+<!--                                                                 | <a href="https://www.facebook.com/seminarioumg/">Hazte Fan en Facebook</a> | -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
                                                     </tr>
+                            
                                                     <tr>
                                                         <td valign="top" width="350">
                                                             <div mc:edit="std_footer">
-																<em>Copyright &copy; *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved.</em>
-																<br />
-																*|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
-																<br />
-																<strong>Our mailing address is:</strong>
-																<br />
-																*|HTML:LIST_ADDRESS_HTML|**|END:IF|* 
-                                                            </div>
+																<em>Copyright &copy; Equipo Desarrollo Sistemas Gerenciales 2017, Todos los Derechos Resevados.</em>
+					                                        </div>
                                                         </td>
-                                                        <td valign="top" width="190" id="monkeyRewards">
-                                                            <div mc:edit="monkeyrewards">
-                                                                *|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*
-                                                            </div>
-                                                        </td>
+ 
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="utility">
-                                                            <div mc:edit="std_utility">
-                                                                &nbsp;<a href="*|UNSUB|*">unsubscribe from this list</a> | <a href="*|UPDATE_PROFILE|*">update subscription preferences</a>&nbsp;
-                                                            </div>
+                     
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -431,12 +441,17 @@
                                     </table>
                                     <!-- // End Template Footer \\ -->
                                 </td>
+                                
                             </tr>
+
                         </table>
                         <br />
                     </td>
+                    
                 </tr>
+                
             </table>
+          
         </center>
     </body>
 </html>
