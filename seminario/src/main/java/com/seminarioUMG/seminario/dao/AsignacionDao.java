@@ -9,12 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import com.seminarioUMG.seminario.model.Alumno;
-import com.seminarioUMG.seminario.model.Curso;
-import com.seminarioUMG.seminario.services.CursosService;
+import com.seminarioUMG.seminario.model.AsignacionCursos;
+import com.seminarioUMG.seminario.services.AsignacionService;
 
 @Repository
-public class CursosDao  implements CursosService{
+public class AsignacionDao implements AsignacionService {
 
 	@Override
 	public void deleteAllInBatch() {
@@ -23,37 +22,37 @@ public class CursosDao  implements CursosService{
 	}
 
 	@Override
-	public void deleteInBatch(Iterable<Curso> arg0) {
+	public void deleteInBatch(Iterable<AsignacionCursos> arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Curso> findAll() {
+	public List<AsignacionCursos> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Curso> findAll(Sort arg0) {
+	public List<AsignacionCursos> findAll(Sort arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Curso> findAll(Iterable<Serializable> arg0) {
+	public List<AsignacionCursos> findAll(Iterable<Serializable> arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Curso> List<S> findAll(Example<S> arg0) {
+	public <S extends AsignacionCursos> List<S> findAll(Example<S> arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Curso> List<S> findAll(Example<S> arg0, Sort arg1) {
+	public <S extends AsignacionCursos> List<S> findAll(Example<S> arg0, Sort arg1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -65,25 +64,25 @@ public class CursosDao  implements CursosService{
 	}
 
 	@Override
-	public Curso getOne(Serializable arg0) {
+	public AsignacionCursos getOne(Serializable arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Curso> List<S> save(Iterable<S> arg0) {
+	public <S extends AsignacionCursos> List<S> save(Iterable<S> arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Curso> S saveAndFlush(S arg0) {
+	public <S extends AsignacionCursos> S saveAndFlush(S arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<Curso> findAll(Pageable arg0) {
+	public Page<AsignacionCursos> findAll(Pageable arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -101,13 +100,13 @@ public class CursosDao  implements CursosService{
 	}
 
 	@Override
-	public void delete(Curso arg0) {
+	public void delete(AsignacionCursos arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Iterable<? extends Curso> arg0) {
+	public void delete(Iterable<? extends AsignacionCursos> arg0) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -125,58 +124,39 @@ public class CursosDao  implements CursosService{
 	}
 
 	@Override
-	public Curso findOne(Serializable arg0) {
+	public AsignacionCursos findOne(Serializable arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Curso> S save(S arg0) {
+	public <S extends AsignacionCursos> S save(S arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Curso> long count(Example<S> arg0) {
+	public <S extends AsignacionCursos> long count(Example<S> arg0) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public <S extends Curso> boolean exists(Example<S> arg0) {
+	public <S extends AsignacionCursos> boolean exists(Example<S> arg0) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public <S extends Curso> Page<S> findAll(Example<S> arg0, Pageable arg1) {
+	public <S extends AsignacionCursos> Page<S> findAll(Example<S> arg0, Pageable arg1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Curso> S findOne(Example<S> arg0) {
+	public <S extends AsignacionCursos> S findOne(Example<S> arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<String> listByName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> getSeccion(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCourse(String nombre, String seccion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }

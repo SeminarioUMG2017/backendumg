@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.services.CursosService;
 
 
@@ -62,21 +63,14 @@ public class CursoController {
 	
 	 
 	 @GetMapping(value = "/secciones/{nombre}/{seccion}")
-	    public ResponseEntity<List<String>> getCurso(@PathVariable String nombre, @PathVariable String seccion)  {    
+	    public ResponseEntity<String> getCurso(@PathVariable String nombre, @PathVariable String seccion)  {    
 	
-	    	List <String>  Secciones = new ArrayList<String>();
-	   	 System.out.println(nombre);
-	    
-	    	
-	    		Secciones = cursoService.getSeccion(nombre);
+	   String idCurso = cursoService.getCourse(nombre, seccion);
+
 	    		
-	    		
-	    		
-	    		return new ResponseEntity<List<String>>(Secciones, HttpStatus.OK);
+	    		return new ResponseEntity<String>(idCurso, HttpStatus.OK);
 	    		
 	    	
 	    }
-	 
-	
-	
+
 }

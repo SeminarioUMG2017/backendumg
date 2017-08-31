@@ -31,8 +31,11 @@ import com.seminarioUMG.seminario.methods.PasswordGenerator;
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.model.CardexTesoreria;
+import com.seminarioUMG.seminario.model.Curso;
 import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.services.AlumnoService;
+import com.seminarioUMG.seminario.services.AsignacionService;
+import com.seminarioUMG.seminario.services.CursosService;
 import com.seminarioUMG.seminario.services.TesoreriaService;
 import com.seminarioUMG.seminario.services.UserRepository;
 
@@ -52,6 +55,11 @@ public class AlumnoController {
 	UserRepository userRepo;
 	@Autowired
 	TesoreriaService tesoreriaService;
+	@Autowired
+	CursosService cursoService;
+	@Autowired
+	AsignacionService asignacionService;
+	
 	
 
 
@@ -70,8 +78,22 @@ public class AlumnoController {
     }
     
 
-    @GetMapping(value = "/alumnoslogin")
+    @GetMapping(value = "/getalumnosbycurso")
     public ResponseEntity<Alumno> validateAlumno(){
+    	return null;
+    }
+    
+    @PostMapping(value = "/asignarcurso")
+    public ResponseEntity<String> asignacionCurso(@RequestParam String nocarnet, @RequestParam String idCurso){
+
+    	AsignacionCursos asignacion = new AsignacionCursos();
+    	
+    	Curso curso = cursoService.findOne(idCurso);
+    	Alumno alumno = alumnoService.findOne(nocarnet);
+    	asignacion.setCurso(curso);
+    	asignacion.setAlumno(alumno);    	
+    	asignacionService.save(asignacion);
+
     	return null;
     }
     

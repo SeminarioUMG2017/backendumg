@@ -40,7 +40,7 @@ public interface CursosService extends JpaRepository<Curso, Serializable> {
 	List<String> getSeccion(@Param("nombre") String nombre); 
 	
 	@Query(value = GET_ID_CURSO , nativeQuery=true)   
-	List<String> getCourse(@Param("nombre") String nombre,@Param("seccion") String seccion); 
+	String getCourse(@Param("nombre") String nombre,@Param("seccion") String seccion); 
 	
 
 
