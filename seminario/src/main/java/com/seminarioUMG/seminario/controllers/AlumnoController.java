@@ -4,7 +4,9 @@ import java.io.IOException;
 
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -33,11 +35,6 @@ import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.TesoreriaService;
 import com.seminarioUMG.seminario.services.UserRepository;
-
-
-
-
-
 
 @RestController
 @RequestMapping(value = "/alumno")
@@ -79,7 +76,7 @@ public class AlumnoController {
     }
     
     @GetMapping(value = "/{nocarnet}")
-    public ResponseEntity<List<Alumno>> getAlumnobyLike(@PathVariable String nocarnet)  {
+    public ResponseEntity<List<Alumno>> getAlumnoandAsignaciones(@PathVariable String nocarnet)  {
     	
     	try
     	{
@@ -93,6 +90,7 @@ public class AlumnoController {
  
     	
     }
+    
 
 
     @GetMapping(value = "/getallalumnos")

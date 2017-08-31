@@ -1,6 +1,7 @@
 package com.seminarioUMG.seminario.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "cursos")
@@ -36,8 +38,9 @@ public class Curso {
 	@JoinColumn(name = "id_catedratico")
 	@JsonBackReference
 	private Catedratico catedratico;
-	 @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
-		private List<AsignacionCursos> asignaciones;
+//	 @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
+//	@JsonManagedReference
+//	private Set<AsignacionCursos> asignaciones;
 	
 	
 	
@@ -65,16 +68,26 @@ public class Curso {
 	public void setSeccion(String seccion) {
 		this.seccion = seccion;
 	}
-	public Curso(String idCurso, String seccion, String nombre, Catedratico catedratico) {
+//	public Set<AsignacionCursos> getAsignaciones() {
+//		return asignaciones;
+//	}
+//	public void setAsignaciones(Set<AsignacionCursos> asignaciones) {
+//		this.asignaciones = asignaciones;
+//	}
+	public Curso(String idCurso, String seccion, String nombre,
+			Catedratico catedratico) {
 		super();
 		this.idCurso = idCurso;
 		this.seccion = seccion;
 		this.nombre = nombre;
 		this.catedratico = catedratico;
+//		this.asignaciones = asignaciones;
 	}
 	public Curso() {
+	
+		// TODO Auto-generated constructor stub
 	}
-
+	
 	
 	
 

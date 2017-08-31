@@ -21,12 +21,12 @@ public class AsignacionCursos {
 		@Column (name = "correlativo")
 		private Integer Correlativo;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne(fetch = FetchType.EAGER)
 		@JoinColumn(name = "id_curso")
-		@JsonBackReference
+//		@JsonBackReference
 		private Curso curso;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne(fetch = FetchType.EAGER)
 		@JoinColumn(name = "nocarnet") 
 		@JsonBackReference
 		private Alumno alumno;

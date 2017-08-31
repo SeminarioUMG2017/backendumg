@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name ="alumno")
 public class Alumno { 
@@ -31,7 +33,8 @@ public class Alumno {
 	@Column (name = "correo")
 	private String correo;
 	
-	 @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumno")
+	 @OneToMany(fetch = FetchType.EAGER, mappedBy = "alumno")
+	 @JsonManagedReference
 	private Set<AsignacionCursos> asignaciones;
 	
 	
@@ -66,8 +69,8 @@ public class Alumno {
 	public void setAsignaciones(Set<AsignacionCursos> asignaciones) {
 		this.asignaciones = asignaciones;
 	}
-	public Alumno(String noCarnet, String nombres, String apellidos, String correo,
-			Set<AsignacionCursos> asignaciones) {
+	public Alumno(String noCarnet, String nombres, String apellidos,
+			String correo, Set<AsignacionCursos> asignaciones) {
 		super();
 		NoCarnet = noCarnet;
 		this.nombres = nombres;
@@ -76,9 +79,8 @@ public class Alumno {
 		this.asignaciones = asignaciones;
 	}
 	public Alumno() {
-		
+		// TODO Auto-generated constructor stub
 	}
-	
 	
 	
 	

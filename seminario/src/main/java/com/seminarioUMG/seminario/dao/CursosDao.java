@@ -3,27 +3,18 @@ package com.seminarioUMG.seminario.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.seminarioUMG.seminario.model.Alumno;
-import com.seminarioUMG.seminario.model.AsignacionCursos;
-import com.seminarioUMG.seminario.services.AlumnoService;
+import com.seminarioUMG.seminario.model.Curso;
+import com.seminarioUMG.seminario.services.CursosService;
 
 @Repository
-public  class AlumnoDao implements AlumnoService {
-
-	@Autowired
-	EntityManager entityManager; 
+public class CursosDao  implements CursosService{
 
 	@Override
 	public void deleteAllInBatch() {
@@ -32,31 +23,37 @@ public  class AlumnoDao implements AlumnoService {
 	}
 
 	@Override
-	public void deleteInBatch(Iterable<Alumno> arg0) {
+	public void deleteInBatch(Iterable<Curso> arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Alumno> findAll(Sort arg0) {
+	public List<Curso> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Alumno> findAll(Iterable<Serializable> arg0) {
+	public List<Curso> findAll(Sort arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Alumno> List<S> findAll(Example<S> arg0) {
+	public List<Curso> findAll(Iterable<Serializable> arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Alumno> List<S> findAll(Example<S> arg0, Sort arg1) {
+	public <S extends Curso> List<S> findAll(Example<S> arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Curso> List<S> findAll(Example<S> arg0, Sort arg1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,45 +65,27 @@ public  class AlumnoDao implements AlumnoService {
 	}
 
 	@Override
-	public Alumno getOne(Serializable arg0) {
+	public Curso getOne(Serializable arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Alumno> List<S> save(Iterable<S> arg0) {
+	public <S extends Curso> List<S> save(Iterable<S> arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Alumno> S saveAndFlush(S arg0) {
+	public <S extends Curso> S saveAndFlush(S arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<Alumno> findAll(Pageable pageable) {
+	public Page<Curso> findAll(Pageable arg0) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public <S extends Alumno> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Alumno findOne(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean exists(Serializable id) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -116,19 +95,19 @@ public  class AlumnoDao implements AlumnoService {
 	}
 
 	@Override
-	public void delete(Serializable id) {
+	public void delete(Serializable arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Alumno entity) {
+	public void delete(Curso arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Iterable<? extends Alumno> entities) {
+	public void delete(Iterable<? extends Curso> arg0) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -140,53 +119,64 @@ public  class AlumnoDao implements AlumnoService {
 	}
 
 	@Override
-	public <S extends Alumno> S findOne(Example<S> example) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> Page<S> findAll(Example<S> example, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> long count(Example<S> example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <S extends Alumno> boolean exists(Example<S> example) {
+	public boolean exists(Serializable arg0) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<Alumno> findAll() {
+	public Curso findOne(Serializable arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Alumno> findBylikeCarnet(String nocarnet) {
+	public <S extends Curso> S save(S arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Alumno> findByCourse(String idCurso) {
+	public <S extends Curso> long count(Example<S> arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public <S extends Curso> boolean exists(Example<S> arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public <S extends Curso> Page<S> findAll(Example<S> arg0, Pageable arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Curso> S findOne(Example<S> arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> listByName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getSeccion(String nombre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getCourse(String nombre, String seccion) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
-	
-	
-
-	
-	
-	
-	
 }
