@@ -56,6 +56,7 @@ public class AlumnoController {
 	@Autowired
 	TesoreriaService tesoreriaService;
 	@Autowired
+	@Qualifier("CursosService")
 	CursosService cursoService;
 	@Autowired
 	AsignacionService asignacionService;

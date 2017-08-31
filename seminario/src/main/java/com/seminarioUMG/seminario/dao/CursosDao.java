@@ -3,6 +3,7 @@ package com.seminarioUMG.seminario.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class CursosDao  implements CursosService{
 	public void deleteInBatch(Iterable<Curso> arg0) {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
 
 	@Override
 	public List<Curso> findAll() {
