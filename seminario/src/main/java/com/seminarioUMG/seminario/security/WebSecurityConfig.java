@@ -2,6 +2,7 @@ package com.seminarioUMG.seminario.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -20,10 +21,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
 		super(true);
 	}
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/login");
-	}
+	  
+			@Override
+		      public void configure(WebSecurity web) throws Exception {			
+		        web.ignoring()
+		          .antMatchers(HttpMethod.OPTIONS);
+		        
+		      }
 
 	@Bean
 	@Override
