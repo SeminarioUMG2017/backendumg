@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+
 import javax.persistence.GenerationType;
 
 
@@ -23,7 +26,9 @@ public class CardexTesoreria {
 	private String descripcion;
 	@Column(name="tipo")
 	private Long tipo;
+	
 	@Column(name="fecha")
+	@Type(type="date")
 	private Date fecha;
 	@Column(name = "monto")
 	private Double monto;

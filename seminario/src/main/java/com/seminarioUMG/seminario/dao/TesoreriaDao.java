@@ -173,14 +173,16 @@ public class TesoreriaDao implements TesoreriaService {
 		return null;
 	}
 
+	
+
 	@Override
-	public List<CardexTesoreria> findByTipoAndFechaI(Long tipo, Date fecha) {
+	public List<CardexTesoreria> findByTipoAndFechaBetween(Long tipo, Date fechaI, Date fechaF) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<CardexTesoreria> findByTipoAndFechaBetween(Long tipo, Date fechaI, Date fechaF) {
+	public List<CardexTesoreria> findByTipoAndFechaI(Long tipo, String fecha) {
 		// TODO Auto-generated method stub
 		return null;
 	}

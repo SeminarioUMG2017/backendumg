@@ -16,12 +16,14 @@ public interface TesoreriaService extends JpaRepository<CardexTesoreria, Seriali
 	
 	List<CardexTesoreria> findByTipo(Long tipo);
 	
-	@Query("Select ct from CardexTesoreria ct where ct.tipo=?1 and ct.fecha>=?2")
-	List<CardexTesoreria> findByTipoAndFechaI(Long tipo, Date fecha);
+	@Query("Select ct from CardexTesoreria ct where ct.tipo=?1 and ct.fecha>=DATE(?2)")
+	List<CardexTesoreria> findByTipoAndFechaI(Long tipo, String fecha);
 	
 	@Query("Select ct from CardexTesoreria ct where ct.tipo=?1 and ct.fecha > current_date")
 	List<CardexTesoreria> findByTipoAndFechaBetweenEst(Optional<Long> tipo);
 	
 	List<CardexTesoreria> findByTipoAndFechaBetween(Long tipo, Date fechaI, Date fechaF);
+	
+	
 	
 }

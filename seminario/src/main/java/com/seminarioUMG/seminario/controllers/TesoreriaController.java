@@ -46,7 +46,10 @@ public class TesoreriaController {
 		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 		 Long tipo =(long) 1;
 		 Date fecha = formatoFecha.parse(fechaI);
-		 ingresos = serviceTesoreria.findByTipoAndFechaI(tipo, fecha);
+		 String fechaString = formatoFecha.format(fecha);
+		 ingresos = serviceTesoreria.findByTipoAndFechaI(tipo, fechaString);
+		 
+		 System.out.println("Cantida de registros "+ingresos.size()+" fecha "+fechaString);
 		return ingresos;
 	 }
 	 
@@ -57,9 +60,16 @@ public class TesoreriaController {
 		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		 fechaI = fechaI.concat(" 00:00:00");
 		 fechaF = fechaF.concat(" 23:59:59");
-		 
 		 Long tipo =(long) 1;
 		 ingresos = serviceTesoreria.findByTipoAndFechaBetween(tipo, formatoFecha.parse(fechaI), formatoFecha.parse(fechaF));
+		return ingresos;
+	 }
+	 
+	 @GetMapping(value = {"/allRegistros" })
+	 public List<CardexTesoreria> obtenerTodos() throws ParseException{
+		 List<CardexTesoreria> ingresos = null;
+		 ingresos = serviceTesoreria.findAll();
+		 
 		return ingresos;
 	 }
 	 
@@ -70,7 +80,9 @@ public class TesoreriaController {
 		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 		 Long tipo =(long) 2;
 		 Date fecha = formatoFecha.parse(fechaI);
-		 ingresos = serviceTesoreria.findByTipoAndFechaI(tipo, fecha);
+		 String fechaString = formatoFecha.format(fecha);
+		 ingresos = serviceTesoreria.findByTipoAndFechaI(tipo, fechaString);
+		 
 		return ingresos;
 	 }
 	 
@@ -78,10 +90,9 @@ public class TesoreriaController {
 	 public List<CardexTesoreria> obtenerTodosEgresosRango(@PathVariable("fechaI") String fechaI, @PathVariable("fechaF") String fechaF ) throws ParseException{
 	 		
 		 List<CardexTesoreria> ingresos = null;
-		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		 fechaI = fechaI.concat(" 00:00:00");
-		 fechaF = fechaF.concat(" 23:59:59");
-		 
+		 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		 String fechaInicial = formatoFecha.format(formatoFecha.parse(fechaI));
+		 String fechaFinal = formatoFecha.format(formatoFecha.parse(fechaF));
 		 Long tipo =(long) 2;
 		 LOG.info("Fecha final "+formatoFecha.parse(fechaF));
 		 ingresos = serviceTesoreria.findByTipoAndFechaBetween(tipo, formatoFecha.parse(fechaI), formatoFecha.parse(fechaF));
