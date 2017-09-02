@@ -43,7 +43,7 @@ public class GeneradorQr {
 
 		
 		
-		 File f = new File(servletContext.getRealPath("/")+carnet+".png");
+		 File f = new File(servletContext.getRealPath("/codigosqr/")+carnet+".png");
        
 	
 		
