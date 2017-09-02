@@ -12,7 +12,7 @@ public class Qr {
 	
 	@Id
 	@Column (name = "nocarnet")
-	private String NoCarnet;
+	private String carnet;
 	@Column (name = "ruta")
 	private String ruta;
 	@Column (name = "ingreso")
@@ -32,7 +32,7 @@ public class Qr {
 	
 	public Qr(String noCarnet, String ruta, boolean ingreso, boolean refaccion, boolean diploma, String cadena) {
 		super();
-		NoCarnet = noCarnet;
+		carnet = noCarnet;
 		this.ruta = ruta;
 		this.ingreso = ingreso;
 		this.refaccion = refaccion;
@@ -42,12 +42,12 @@ public class Qr {
 
 
 	public String getNoCarnet() {
-		return NoCarnet;
+		return carnet;
 	}
 
 
 	public void setNoCarnet(String noCarnet) {
-		NoCarnet = noCarnet;
+		carnet = noCarnet;
 	}
 
 

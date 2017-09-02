@@ -1,13 +1,20 @@
 package com.seminarioUMG.seminario.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seminarioUMG.seminario.model.CardexTesoreria;
 import com.seminarioUMG.seminario.model.Qr;
 import com.seminarioUMG.seminario.services.QrService;
 
@@ -90,5 +97,12 @@ public class QrController {
 		
 		 return codigoValidacion;
 	 }
+	@GetMapping("/getInfoQR/{carnet}")
+	 public Qr obtenerInfoQR(@PathVariable("carnet") String carnet) throws ParseException{
+ 		
+		 Qr codigoQr = servicio.findOne(carnet);
+		return codigoQr;
+	 }
+	
 
 }

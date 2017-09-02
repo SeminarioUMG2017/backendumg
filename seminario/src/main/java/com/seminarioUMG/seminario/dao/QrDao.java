@@ -163,4 +163,12 @@ public class QrDao implements QrService{
 		return null;
 	}
 
+	
+
+	@Override
+	public Qr findByCarnet(String carnet) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

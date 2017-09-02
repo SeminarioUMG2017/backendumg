@@ -10,5 +10,6 @@ public interface QrService extends JpaRepository<Qr, Serializable>{
 	
 	Qr findOne(Serializable arg0);
 	Qr findByCadena(String cadena);
+	Qr findByCarnet(String carnet);
 
 }
