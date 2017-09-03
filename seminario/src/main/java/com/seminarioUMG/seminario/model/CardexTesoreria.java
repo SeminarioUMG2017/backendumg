@@ -1,6 +1,7 @@
 package com.seminarioUMG.seminario.model;
 
 import java.sql.Timestamp;
+
 import java.util.Date;
 
 import javax.persistence.Column;

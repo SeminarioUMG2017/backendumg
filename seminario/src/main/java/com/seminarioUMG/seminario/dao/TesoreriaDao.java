@@ -187,6 +187,12 @@ public class TesoreriaDao implements TesoreriaService {
 		return null;
 	}
 
+	@Override
+	public List<CardexTesoreria> findOrderByFechaDesc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 	

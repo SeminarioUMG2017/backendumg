@@ -68,7 +68,7 @@ public class TesoreriaController {
 	 @GetMapping(value = {"/allRegistros" })
 	 public List<CardexTesoreria> obtenerTodos() throws ParseException{
 		 List<CardexTesoreria> ingresos = null;
-		 ingresos = serviceTesoreria.findAll();
+		 ingresos = serviceTesoreria.findOrderByFechaDesc();
 		 
 		return ingresos;
 	 }

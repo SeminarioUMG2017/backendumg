@@ -23,7 +23,7 @@ public interface TesoreriaService extends JpaRepository<CardexTesoreria, Seriali
 	List<CardexTesoreria> findByTipoAndFechaBetweenEst(Optional<Long> tipo);
 	
 	List<CardexTesoreria> findByTipoAndFechaBetween(Long tipo, Date fechaI, Date fechaF);
-	
-	
+	@Query("Select ct from CardexTesoreria ct order by ct.fecha desc")
+	List<CardexTesoreria> findOrderByFechaDesc();
 	
 }
