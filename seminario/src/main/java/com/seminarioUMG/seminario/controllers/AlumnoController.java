@@ -32,6 +32,7 @@ import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.model.CardexTesoreria;
 import com.seminarioUMG.seminario.model.Curso;
+import com.seminarioUMG.seminario.model.Qr;
 import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.AsignacionService;
@@ -104,9 +105,26 @@ private	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     }
     
 
-    @GetMapping(value = "/getalumnosbycurso")
-    public ResponseEntity<Alumno> validateAlumno(){
-    	return null;
+    @GetMapping(value = "/getqrbyid")
+    public String getQrById(@RequestParam String nocarnet){
+    	
+    	
+    	Qr qr = qrService.getOne(nocarnet);
+    	if(qr != null) {
+    		
+    		String url =" http://34.233.183.228:8080/seminario/codigosqr/"+nocarnet+".png"; 
+    		return url;
+    	}else {
+    		return "no se encuentra la imagen";
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     }
     
     @PostMapping(value = "/asignarcurso")
