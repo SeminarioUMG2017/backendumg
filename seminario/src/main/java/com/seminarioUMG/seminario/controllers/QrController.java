@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seminarioUMG.seminario.model.CardexTesoreria;
@@ -21,13 +23,13 @@ import com.seminarioUMG.seminario.services.QrService;
 @RestController
 public class QrController {
 	private static Logger LOG = LoggerFactory.getLogger(QrController.class);
-	private final String CODIGO_ACTUALIZADO = "001";
-	private final String CODIGO_EXISTENTE = "000";
-	private final String CODIGO_NO_EXISTE = "002";
-	private final String CODIGO_NO_INGRESO = "003";
+	private final String CODIGO_ACTUALIZADO = "Codigo Actualizado";
+	private final String CODIGO_EXISTENTE = "Estado ya ingresado";
+	private final String CODIGO_NO_EXISTE = "Codigo no registrado en base de datos";
+	private final String CODIGO_NO_INGRESO = "Codigo no registro ingreso a evento";
 	@Autowired QrService servicio;
-	@PutMapping(value = "/updateQr")
-	public String updateQr(@RequestBody Qr qr) {
+	@PostMapping(value = "/updateQr")
+	public @ResponseBody String updateQr(@RequestBody Qr qr) {
 		 String codigoValidacion = "";
 		 try {
 			
