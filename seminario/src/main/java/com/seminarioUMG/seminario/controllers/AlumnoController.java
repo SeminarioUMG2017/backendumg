@@ -36,6 +36,7 @@ import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.AsignacionService;
 import com.seminarioUMG.seminario.services.CursosService;
+import com.seminarioUMG.seminario.services.QrService;
 import com.seminarioUMG.seminario.services.TesoreriaService;
 import com.seminarioUMG.seminario.services.UserRepository;
 
@@ -44,7 +45,7 @@ import com.seminarioUMG.seminario.services.UserRepository;
 public class AlumnoController {
 	
 	@Autowired
-	AlumnoService alumnoService; 
+	AlumnoService alumnoService;  
 	@Autowired
 	Mailer mailer;
 	@Autowired
@@ -60,21 +61,45 @@ public class AlumnoController {
 	CursosService cursoService;
 	@Autowired
 	AsignacionService asignacionService;
+	@Autowired
+	QrService qrService;
+
+private	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	
 
 
     @PostMapping(value = "/addalumno")
-    public ResponseEntity<Alumno> addalumno(@RequestBody Alumno alumno)  {    
-    
-    	
+    public ResponseEntity<Alumno> AgregarAlumno(@RequestBody Alumno alumno)  {    
     	try
     	{
-    		Alumno save = alumnoService.save(alumno);
+    		 alumnoService.save(alumno);
     		return new ResponseEntity<Alumno>(alumno, HttpStatus.OK);
     		
     	}catch(Exception e) {
     		return new ResponseEntity<Alumno>(HttpStatus.BAD_REQUEST);
+    	}
+    }
+    
+    
+    
+    
+    @PostMapping(value = "/updatealumno/{nocarnet}")
+    public String  UpdateAlumno(@PathVariable String nocarnet,@RequestParam String nombres ,@RequestParam String apellido , @RequestParam String correo)  {    
+    	try
+    	{
+    		Alumno alumno = alumnoService.findOne(nocarnet);
+    		
+    		if(alumno != null) 
+    		alumno.setApellidos(apellido);
+    		alumno.setNombres(nombres);
+    		alumno.setCorreo(correo);
+    		 alumnoService.save(alumno);
+    		 alumnoService.save(alumno);
+    		return "OK";
+    		
+    	}catch(Exception e) {
+    		return "Error Actualizando Datos";
     	}
     }
     
@@ -85,7 +110,7 @@ public class AlumnoController {
     }
     
     @PostMapping(value = "/asignarcurso")
-    public ResponseEntity<String> asignacionCurso(@RequestParam String nocarnet, @RequestParam String idCurso){
+    public ResponseEntity<String> AsignarCurso(@RequestParam String nocarnet, @RequestParam String idCurso){
 
     	AsignacionCursos asignacion = new AsignacionCursos();
     	
@@ -98,8 +123,25 @@ public class AlumnoController {
     	return null;
     }
     
+    
+    @PostMapping(value = "/deleteasignacion")
+    public  String QuitarAsignacion(@RequestParam Integer correlativo){
+  	
+    	
+    	try
+    	{
+    		asignacionService.delete(correlativo);
+    		return "Eliminado";
+    	}
+    		
+    catch(Exception e) {
+		return "No Se encontro la asignacion";
+	}
+    	
+    }
+    
     @GetMapping(value = "/{nocarnet}")
-    public ResponseEntity<List<Alumno>> getAlumnoandAsignaciones(@PathVariable String nocarnet)  {
+    public ResponseEntity<List<Alumno>> GetAlumnoByCarnet(@PathVariable String nocarnet)  {
     	
     	try
     	{
@@ -117,10 +159,10 @@ public class AlumnoController {
 
 
     @GetMapping(value = "/getallalumnos")
-    public ResponseEntity<List<Alumno>> getalumnos() throws IOException  {    
+    public ResponseEntity<List<Alumno>> TodosLosAlumnos() throws IOException  {    
     	try
     	{
-    		List<Alumno> Alumnos = alumnoService.findAll();
+    		List<Alumno> Alumnos = (List<Alumno>) alumnoService.findAll();
     		if(Alumnos.size()==0)
     		{
     			return new ResponseEntity<List<Alumno>>(HttpStatus.NO_CONTENT);
@@ -138,11 +180,11 @@ public class AlumnoController {
 
     
     @PostMapping(value = "/adduseralumno")
-    public String createalumnoyser(@RequestParam String nocarnet, @RequestParam String correo) throws IOException  {    
+    public String CompradeTicket(@RequestParam String nocarnet, @RequestParam String correo) throws IOException  {    
     	String apellido = null;
     	Alumno alumno = alumnoService.findOne(nocarnet); 
     	User user = new User();
-    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    
     	if (alumno != null) {
     		apellido = 	alumno.getApellidos();
         	alumno.setCorreo(correo);
@@ -160,7 +202,7 @@ public class AlumnoController {
         	try
         	{
         		String passw = pass.genrar();
-        		System.out.println(passw);
+        		System.out.println(passwordEncoder.encode(passw));
         		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
         		mailer.executeMail(nocarnet,passw );
         		user.setUsername(alumno.getNoCarnet());
@@ -172,17 +214,50 @@ public class AlumnoController {
         	}catch(Exception e) {
         		 e.printStackTrace(); 
         	}
-        		
+        		 
     	}
     	
     	
     	
     	
     	
-		return apellido	;
+		return "Realizado"	;
     	
     }
 
+    
+    
+    @PostMapping(value = "/reloadmail")
+    public String ReenvioPassword(@RequestParam String nocarnet) throws IOException  {    
+    
+
+    	if (qrService.findOne(nocarnet) != null) {
+    		
+    		Alumno alumno = alumnoService.findOne(nocarnet);
+    		
+    		User user = userRepo.findOneByUsername(alumno.getNoCarnet());
+        	try
+        	{
+        		String passw = pass.genrar();
+        		
+        		mailer.executeMail(nocarnet,passw );
+        		user.setPassword(passwordEncoder.encode(passw));
+        		userRepo.save(user);
+   
+        	
+        	}catch(Exception e) {
+        		 e.printStackTrace(); 
+        	}
+        		 
+    	}
+    	
+    	
+    	
+    	
+    	
+		return "Realizado"	;
+    	
+    }
     
     
 }

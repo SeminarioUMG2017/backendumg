@@ -22,92 +22,6 @@ import com.seminarioUMG.seminario.services.AlumnoService;
 @Repository
 public  class AlumnoDao implements AlumnoService {
 
-	@Autowired
-	EntityManager entityManager; 
-
-	@Override
-	public void deleteAllInBatch() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteInBatch(Iterable<Alumno> arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<Alumno> findAll(Sort arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Alumno> findAll(Iterable<Serializable> arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> List<S> findAll(Example<S> arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> List<S> findAll(Example<S> arg0, Sort arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void flush() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Alumno getOne(Serializable arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> List<S> save(Iterable<S> arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> S saveAndFlush(S arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<Alumno> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Alumno findOne(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean exists(Serializable id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public long count() {
@@ -116,19 +30,19 @@ public  class AlumnoDao implements AlumnoService {
 	}
 
 	@Override
-	public void delete(Serializable id) {
+	public void delete(Serializable arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Alumno entity) {
+	public void delete(Alumno arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Iterable<? extends Alumno> entities) {
+	public void delete(Iterable<? extends Alumno> arg0) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -140,31 +54,37 @@ public  class AlumnoDao implements AlumnoService {
 	}
 
 	@Override
-	public <S extends Alumno> S findOne(Example<S> example) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> Page<S> findAll(Example<S> example, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends Alumno> long count(Example<S> example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <S extends Alumno> boolean exists(Example<S> example) {
+	public boolean exists(Serializable arg0) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<Alumno> findAll() {
+	public Iterable<Alumno> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<Alumno> findAll(Iterable<Serializable> arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Alumno findOne(Serializable arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Alumno> S save(S arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Alumno> Iterable<S> save(Iterable<S> arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -181,8 +101,31 @@ public  class AlumnoDao implements AlumnoService {
 		return null;
 	}
 
+	@Override
+	public Long totalAlumnos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	
+	@Override
+	public Long totalIngresos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long totalDiplomas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long totalEntradas() {
+		// TODO Auto-generated method stub
+		return null;
+	} 
+
+
 	
 
 	

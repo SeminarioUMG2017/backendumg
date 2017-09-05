@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.seminarioUMG.seminario.model.AsignacionCursos;
+import com.seminarioUMG.seminario.model.CardexTesoreria;
 import com.seminarioUMG.seminario.services.AsignacionService;
 
 @Repository
@@ -158,5 +159,13 @@ public class AsignacionDao implements AsignacionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public AsignacionCursos DeleteByCOrrelativo(String correlativo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }
