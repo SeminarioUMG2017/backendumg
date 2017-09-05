@@ -1,6 +1,7 @@
 package com.seminarioUMG.seminario.services;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,7 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.seminarioUMG.seminario.model.Acceso;
+
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.Rol;
 import com.seminarioUMG.seminario.model.User;
