@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
+import com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos;
 
 
 @Service
@@ -58,13 +59,12 @@ public interface AlumnoService extends CrudRepository<Alumno, Serializable>{
 	@Query(GET_ASIGNACIONES_BY_ALUMNO)   
 	List<Alumno> findBylikeCarnet(@Param("nocarnet") String nocarnet); 
 	
-
+	@Query("select new com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos(al.NoCarnet as nocarnet, al.nombres as nombres, al.apellidos as apellidos, al.correo as correo) from AsignacionCursos a inner join a.alumno as al where a.curso.idCurso =?1")
+	List<ResultadoAlumnos> findByCourseAlumno(String idCurso);
 	
 	
-	@Query(value = GET_COURSE_BY_ALUMNO , nativeQuery = true)
+	@Query(value = GET_COURSE_BY_ALUMNO, nativeQuery = true)
 	List<Alumno> findByCourse(@Param("idCurso") String idCurso);
-		
-	
 	
 
 

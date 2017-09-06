@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
+import com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos;
 import com.seminarioUMG.seminario.services.AlumnoService;
 
 @Repository
@@ -95,11 +96,7 @@ public  class AlumnoDao implements AlumnoService {
 		return null;
 	}
 
-	@Override
-	public List<Alumno> findByCourse(String idCurso) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Long totalAlumnos() {
@@ -123,7 +120,21 @@ public  class AlumnoDao implements AlumnoService {
 	public Long totalEntradas() {
 		// TODO Auto-generated method stub
 		return null;
-	} 
+	}
+
+	@Override
+	public List<Alumno> findByCourse(String idCurso) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ResultadoAlumnos> findByCourseAlumno(String idCurso) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 
 	

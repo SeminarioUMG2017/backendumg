@@ -179,5 +179,13 @@ public class CursosDao  implements CursosService{
 		return null;
 	}
 
+	
+
+	@Override
+	public List<Curso> findByCatedratico(Integer carnet) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

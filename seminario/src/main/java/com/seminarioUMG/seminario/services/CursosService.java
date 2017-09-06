@@ -42,6 +42,10 @@ public interface CursosService extends JpaRepository<Curso, Serializable> {
 	@Query(value = GET_ID_CURSO , nativeQuery=true)   
 	String getCourse(@Param("nombre") String nombre,@Param("seccion") String seccion); 
 	
+	
+	@Query("select c from Curso c where c.catedratico.IdCatedratico = ?1")
+	List<Curso> findByCatedratico(Integer carnet);
+	
 
 
 }
