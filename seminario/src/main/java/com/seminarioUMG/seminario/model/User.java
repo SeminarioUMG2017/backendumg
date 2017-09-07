@@ -3,58 +3,40 @@ package com.seminarioUMG.seminario.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "users")
-public class User implements UserDetails  {
+public class User    {
 	
 static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id", nullable = false, updatable = false)
-	private Long id;
-	
+	@Id	
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 	
 	@Column(name = "password", nullable = false)
 	private String password;
 	
+	 @OneToMany(fetch = FetchType.EAGER, mappedBy = "username")
+	 @JsonManagedReference
+	private Set<UserPermission> userrole;
 
 
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-		return authorities;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// we never lock accounts
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// credentials never expire
-		return true;
-	}
 
 	public String getUsername() {
 		return username;
@@ -72,12 +54,7 @@ static final long serialVersionUID = 1L;
 		this.password = password;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 
 
 }

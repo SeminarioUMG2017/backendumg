@@ -28,15 +28,10 @@ import com.seminarioUMG.seminario.model.AsignacionCursos;
 public interface AlumnoService extends CrudRepository<Alumno, Serializable>{
 	
 
-
-
-	
 	public final static String GET_ASIGNACIONES_BY_ALUMNO = "  Select al FROM Alumno al   WHERE al.NoCarnet = :nocarnet";
 	public final static String GET_ALUMNOS_BY_COURSE = "select a from Alumno a  where a.NoCarnet = :idCurso";
 	public final static String GET_COURSE_BY_ALUMNO = "select al.nocarnet nocarnet , al.apellidos apellidos , al.correo correo , al.nombres nombres from cursos cu inner join asignacion_cursos asig on cu.id_curso = asig.id_curso INNER JOIN alumno al on al.nocarnet = asig.nocarnet where cu.id_curso = :idCurso";
-
 	public final static String GET_COUNT_ENTRADAS = "SELECT count(*) FROM seminario.qr;";
-	
 	public final static String GET_COUNT_INGRESOS = "select count(*) FROM qr where ingreso = 1;";
 	public final static String GET_COUNT_DIPLOMAS = "select count(*) FROM qr where diploma = 1;";
 	public final static String GET_TOTAL_ALUMNOS = "select count(*) FROM alumno;";
@@ -57,10 +52,7 @@ public interface AlumnoService extends CrudRepository<Alumno, Serializable>{
 	
 	@Query(GET_ASIGNACIONES_BY_ALUMNO)   
 	List<Alumno> findBylikeCarnet(@Param("nocarnet") String nocarnet); 
-	
 
-	
-	
 	@Query(value = GET_COURSE_BY_ALUMNO , nativeQuery = true)
 	List<Alumno> findByCourse(@Param("idCurso") String idCurso);
 		

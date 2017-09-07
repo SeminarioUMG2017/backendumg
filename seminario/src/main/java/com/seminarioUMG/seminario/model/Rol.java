@@ -1,19 +1,19 @@
 package com.seminarioUMG.seminario.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@NamedQueries({
-	@NamedQuery(name="Rol.listar",
-				query="SELECT r FROM Rol r "),
-	@NamedQuery(name="Rol.findByName",
-				query="SELECT r FROM Rol r WHERE r.descripcion = :rolName")
-})
 @Table(name="rol")
 public class Rol {
 	
@@ -24,6 +24,11 @@ public class Rol {
 	@Column(name="descripcion")
 	private String descripcion;
 
+	 @OneToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+	 @JsonManagedReference
+	private Set<UserPermission> userrole;
+	
+	
 	public Integer getCodigoRol() {
 		return codigoRol;
 	}

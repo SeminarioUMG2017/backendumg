@@ -34,6 +34,7 @@ import com.seminarioUMG.seminario.model.CardexTesoreria;
 import com.seminarioUMG.seminario.model.Curso;
 import com.seminarioUMG.seminario.model.Qr;
 import com.seminarioUMG.seminario.model.User;
+import com.seminarioUMG.seminario.resultmodels.Password;
 import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.AsignacionService;
 import com.seminarioUMG.seminario.services.CursosService;
@@ -64,8 +65,8 @@ public class AlumnoController {
 	AsignacionService asignacionService;
 	@Autowired
 	QrService qrService;
-
-private	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	
 
@@ -82,6 +83,16 @@ private	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     	}
     }
     
+    
+    @PostMapping(value = "/changepassword")
+    public String ChangePassword(@RequestBody Password password)  {
+    	
+    	System.out.println("Entra");
+    	
+    	
+		return "llega";     
+    	
+    }
     
     
     
@@ -117,13 +128,7 @@ private	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     	}else {
     		return "no se encuentra la imagen";
     	}
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+
     	
     }
     
@@ -226,12 +231,11 @@ private	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         		user.setUsername(alumno.getNoCarnet());
         		
         		user.setPassword(passwordEncoder.encode(passw));
-        		user.isEnabled();
         		userRepo.save(user);
         		tesoreriaService.save(tesoreria);
         	}catch(Exception e) {
         		 e.printStackTrace(); 
-        	}
+        	} 
         		 
     	}
     	
