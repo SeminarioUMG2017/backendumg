@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
+import com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos;
+import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.CursosService;
 
 
@@ -25,6 +28,9 @@ public class CursoController {
 	@Autowired
 	@Qualifier("CursosService")
 	CursosService cursoService;
+	@Autowired
+	@Qualifier("AlumnoService")
+	AlumnoService alumnoService;
 	
 	 @GetMapping(value = "/listcursos")
     public ResponseEntity<List<String>> listCursos()  {    
@@ -41,7 +47,7 @@ public class CursoController {
     	}catch(Exception e) {
     		return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
     	}
-    }
+    	}
 	 
 	 
 	 @GetMapping(value = "/secciones/{nombre}")
@@ -72,5 +78,17 @@ public class CursoController {
 	    		
 	    	
 	    }
+	 @GetMapping(value="/getEstudiantes/{codigoCurso}")
+	 public ResponseEntity<List<ResultadoAlumnos>> getEstudiantesCurso(@PathVariable("codigoCurso") String codigoCurso)
+	 {
+		 try {
+			
+			 List<ResultadoAlumnos> alumnos = alumnoService.findByCourseAlumno(codigoCurso);
+			 System.out.println(alumnos.size());
+			 return new ResponseEntity<List<ResultadoAlumnos>>(alumnos,HttpStatus.OK);
+		 }catch(Exception e) {
+			return new ResponseEntity<List<ResultadoAlumnos>>(HttpStatus.BAD_REQUEST); 
+		 }
+	 }
 
 }
