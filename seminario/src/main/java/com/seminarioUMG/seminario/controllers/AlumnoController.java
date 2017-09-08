@@ -33,7 +33,9 @@ import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.model.CardexTesoreria;
 import com.seminarioUMG.seminario.model.Curso;
 import com.seminarioUMG.seminario.model.Qr;
+import com.seminarioUMG.seminario.model.Rol;
 import com.seminarioUMG.seminario.model.User;
+import com.seminarioUMG.seminario.model.UserPermission;
 import com.seminarioUMG.seminario.resultmodels.Password;
 import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.AsignacionService;
@@ -87,10 +89,38 @@ public class AlumnoController {
     @PostMapping(value = "/changepassword")
     public String ChangePassword(@RequestBody Password password)  {
     	
-    	System.out.println("Entra");
+    String respuesta;
+    		try {
+    			
+    			User user = userRepo.findOneByUsername(password.getNocarnet());
+    			
+    			if (passwordEncoder.matches(password.getActualpass(), user.getPassword())) {
+    				System.out.println(password.getConfirmpass());
+    				System.out.println(password.getNewpass());		
+    				if(password.getNewpass().equals(password.getConfirmpass()) ) {
+    		
+    					user.setPassword(passwordEncoder.encode(password.getConfirmpass()));
+    					userRepo.save(user);
+    					respuesta = "Password Actualizado correctamente";
+    				}else {
+    					
+    					respuesta = "Nueva Password y Confirmacion no coinciden";
+    					 
+    				}
+    				
+    			} else {
+    				respuesta = "Password anterior no es correcto";
+    				
+    			}
+				
+			} catch (Exception e) {
+				respuesta = "Error al cambiar password";
+			}
     	
     	
-		return "llega";     
+    	
+    	
+		return respuesta;     
     	
     }
     
@@ -214,6 +244,10 @@ public class AlumnoController {
         	alumnoService.save(alumno);
         	
         	CardexTesoreria tesoreria = new CardexTesoreria();
+        	UserPermission userrole = new UserPermission();
+        	Rol rol = new Rol();
+        	rol.setCodigoRol(1);
+        	rol.setDescripcion("ROLE_ALUMNO");
         	tesoreria.setDescripcion("Entrada vendida a: "+alumno.getNombres()+" "+ alumno.getApellidos());
         	Date date = Calendar.getInstance().getTime();
         	tesoreria.setFecha(date);
@@ -233,6 +267,8 @@ public class AlumnoController {
         		user.setPassword(passwordEncoder.encode(passw));
         		userRepo.save(user);
         		tesoreriaService.save(tesoreria);
+        		userrole.setRoles(rol);
+        		userrole.setUsername(user);
         	}catch(Exception e) {
         		 e.printStackTrace(); 
         	} 

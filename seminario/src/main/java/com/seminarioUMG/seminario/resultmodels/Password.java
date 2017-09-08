@@ -4,15 +4,11 @@ public class Password {
 	
 	
 	private String actualpass;
+	private String nocarnet;
 	private String newpass;
 	private String confirmpass;
 	
-	public String getActual() {
-		return actualpass;
-	}
-	public void setActual(String actualpass) {
-		this.actualpass = actualpass;
-	}
+	
 	public String getNewpass() {
 		return newpass;
 	}
@@ -24,6 +20,18 @@ public class Password {
 	}
 	public void setConfirmpass(String confirmpass) {
 		this.confirmpass = confirmpass;
+	}
+	public String getActualpass() {
+		return actualpass;
+	}
+	public void setActualpass(String actualpass) {
+		this.actualpass = actualpass;
+	}
+	public String getNocarnet() {
+		return nocarnet;
+	}
+	public void setNocarnet(String nocarnet) {
+		this.nocarnet = nocarnet;
 	}
 
 }

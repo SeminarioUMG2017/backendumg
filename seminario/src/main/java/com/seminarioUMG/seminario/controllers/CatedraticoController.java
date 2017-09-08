@@ -42,8 +42,8 @@ public class CatedraticoController {
  
     	
     }
-    @GetMapping(value ="/getCursosCatedratico/{carnet}")
-    public ResponseEntity<List<Curso>> getCursosCatedratico(@PathVariable("carnet") String catedratico)
+    @GetMapping(value ="/getCursosCatedratico/{idCatedratico}")
+    public ResponseEntity<List<Curso>> getCursosCatedratico(@PathVariable("idCatedratico") String catedratico)
     {
     	System.out.println("Carnet catedratico "+catedratico);
     	try

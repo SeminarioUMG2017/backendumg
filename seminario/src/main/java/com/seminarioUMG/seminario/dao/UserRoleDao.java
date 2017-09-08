@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.seminarioUMG.seminario.model.Rol;
 import com.seminarioUMG.seminario.model.UserPermission;
 import com.seminarioUMG.seminario.services.UserRoleService;
 
@@ -162,5 +163,7 @@ public class UserRoleDao implements UserRoleService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
