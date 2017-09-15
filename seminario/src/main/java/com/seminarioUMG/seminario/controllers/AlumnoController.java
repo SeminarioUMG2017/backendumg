@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,6 +45,7 @@ import com.seminarioUMG.seminario.services.CursosService;
 import com.seminarioUMG.seminario.services.QrService;
 import com.seminarioUMG.seminario.services.TesoreriaService;
 import com.seminarioUMG.seminario.services.UserRepository;
+import com.seminarioUMG.seminario.services.UserRoleService;
 
 @RestController
 @RequestMapping(value = "/alumno")
@@ -69,6 +72,8 @@ public class AlumnoController {
 	QrService qrService;
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	@Autowired
+	UserRoleService userRoleService;
 	
 	
 
@@ -162,6 +167,21 @@ public class AlumnoController {
     	
     }
     
+    @GetMapping(value = "/getqr")
+    public List<Map<String,String>> getQrById2(@RequestParam String nocarnet){
+    	Map<String,String> mapa = new HashMap<String, String>();
+		List<Map<String,String>> lmap = new ArrayList<Map<String,String>>();
+    	
+    	Qr qr = qrService.getOne(nocarnet);
+
+    		mapa.put("url", " http://34.233.183.228:8080/seminario/codigosqr/"+nocarnet+".png");
+    		lmap.add(mapa);
+
+		return lmap;
+
+    	
+    }
+    
     @PostMapping(value = "/asignarcurso")
     public ResponseEntity<String> AsignarCurso(@RequestParam String nocarnet, @RequestParam String idCurso){
 
@@ -209,6 +229,23 @@ public class AlumnoController {
     	
     }
     
+    
+    
+    @GetMapping(value = "/infoalumno")
+    public ResponseEntity<List<Alumno>> GetAlumnoByCarnet2(@RequestParam String nocarnet)  {
+    	
+    	try
+    	{
+    		List<Alumno> alumno =  alumnoService.findBylikeCarnet(nocarnet);
+    		return new ResponseEntity<List<Alumno>>(alumno, HttpStatus.OK);
+    	}
+    		
+    catch(Exception e) {
+		return new ResponseEntity<List<Alumno>>(HttpStatus.BAD_REQUEST);
+	}
+ 
+    	
+    }
 
 
     @GetMapping(value = "/getallalumnos")
@@ -251,7 +288,7 @@ public class AlumnoController {
         	tesoreria.setDescripcion("Entrada vendida a: "+alumno.getNombres()+" "+ alumno.getApellidos());
         	Date date = Calendar.getInstance().getTime();
         	tesoreria.setFecha(date);
-        	tesoreria.setMonto(80.00);
+        	tesoreria.setMonto(85.00);
         	tesoreria.setTipo((long)1);
         	
         	
@@ -269,6 +306,7 @@ public class AlumnoController {
         		tesoreriaService.save(tesoreria);
         		userrole.setRoles(rol);
         		userrole.setUsername(user);
+        		userRoleService.save(userrole);
         	}catch(Exception e) {
         		 e.printStackTrace(); 
         	} 
