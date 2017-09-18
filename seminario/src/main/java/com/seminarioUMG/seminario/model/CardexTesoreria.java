@@ -33,6 +33,17 @@ public class CardexTesoreria {
 	private Date fecha;
 	@Column(name = "monto")
 	private Double monto;
+	@Column(name = "id_usuario")
+	private Integer idUsuario;
+	
+	
+	
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	public Long getIdCardex() {
 		return idCardex;
 	}
@@ -63,14 +74,15 @@ public class CardexTesoreria {
 	public void setMonto(Double monto) {
 		this.monto = monto;
 	}
-	public CardexTesoreria(Long idCardex, String descripcion, Long tipo,
-			Date fecha, Double monto) {
+
+	public CardexTesoreria(Long idCardex, String descripcion, Long tipo, Date fecha, Double monto, Integer idUsuario) {
 		super();
 		this.idCardex = idCardex;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
 		this.fecha = fecha;
 		this.monto = monto;
+		this.idUsuario = idUsuario;
 	}
 	public CardexTesoreria() {
 	

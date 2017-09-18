@@ -270,14 +270,15 @@ public class AlumnoController {
 
     
     @PostMapping(value = "/adduseralumno")
-    public String CompradeTicket(@RequestParam String nocarnet, @RequestParam String correo) throws IOException  {    
+    public String CompradeTicket(@RequestParam String nocarnet, @RequestParam String correo, @RequestParam String idUsuario) throws IOException  {    
     	String apellido = null;
     	Alumno alumno = alumnoService.findOne(nocarnet); 
     	User user = new User();
-    
+    	Integer idUs = Integer.parseInt(idUsuario);
     	if (alumno != null) {
     		apellido = 	alumno.getApellidos();
         	alumno.setCorreo(correo);
+        	alumno.setPagado(true);
         	alumnoService.save(alumno);
         	
         	CardexTesoreria tesoreria = new CardexTesoreria();
@@ -290,7 +291,7 @@ public class AlumnoController {
         	tesoreria.setFecha(date);
         	tesoreria.setMonto(85.00);
         	tesoreria.setTipo((long)1);
-        	
+        	tesoreria.setIdUsuario(idUs);
         	
          	
         	try

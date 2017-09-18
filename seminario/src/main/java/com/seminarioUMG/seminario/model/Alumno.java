@@ -34,9 +34,16 @@ public class Alumno {
 	 @OneToMany(fetch = FetchType.EAGER, mappedBy = "alumno")
 	 @JsonManagedReference
 	private Set<AsignacionCursos> asignaciones;
+	@Column(name = "pagado")
+	private boolean pagado;
 	
 	
-	
+	public boolean isPagado() {
+		return pagado;
+	}
+	public void setPagado(boolean pagado) {
+		this.pagado = pagado;
+	}
 	public String getNoCarnet() {
 		return NoCarnet;
 	}
@@ -67,14 +74,16 @@ public class Alumno {
 	public void setAsignaciones(Set<AsignacionCursos> asignaciones) {
 		this.asignaciones = asignaciones;
 	}
-	public Alumno(String noCarnet, String nombres, String apellidos,
-			String correo, Set<AsignacionCursos> asignaciones) {
+	
+	public Alumno(String noCarnet, String nombres, String apellidos, String correo, Set<AsignacionCursos> asignaciones,
+			boolean pagado) {
 		super();
 		NoCarnet = noCarnet;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.asignaciones = asignaciones;
+		this.pagado = pagado;
 	}
 	public Alumno() {
 		// TODO Auto-generated constructor stub
