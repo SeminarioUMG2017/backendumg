@@ -63,12 +63,12 @@ public class CatedraticoController {
 	@Autowired
 	MailerCatedratico mailer;
 	
-    @GetMapping(value = "/{idCurso}")
+    @GetMapping(value = "getAlumnos/{idCurso}")
     public ResponseEntity<List<ResultadoAlumnos>> getAlumnoandAsignaciones(@PathVariable String idCurso)  {
     	
     	try
     	{
-    		List<ResultadoAlumnos> alumno =  alumnoService.findByCourse(idCurso); 
+    		List<ResultadoAlumnos> alumno =  alumnoService.findByCourseAlumno(idCurso); 
     		System.out.println(alumno.size());
     		return new ResponseEntity<List<ResultadoAlumnos>>(alumno, HttpStatus.OK);
 
