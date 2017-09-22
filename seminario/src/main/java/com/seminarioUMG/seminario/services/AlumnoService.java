@@ -61,7 +61,7 @@ public interface AlumnoService extends CrudRepository<Alumno, Serializable>{
 	
 	
 	@Query(value = GET_COURSE_BY_ALUMNO, nativeQuery = true)
-	List<Alumno> findByCourse(@Param("idCurso") String idCurso);
+	List<ResultadoAlumnos> findByCourse(@Param("idCurso") String idCurso);
 	
 
 

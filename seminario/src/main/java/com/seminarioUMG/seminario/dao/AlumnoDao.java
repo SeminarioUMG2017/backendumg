@@ -123,7 +123,7 @@ public  class AlumnoDao implements AlumnoService {
 	}
 
 	@Override
-	public List<Alumno> findByCourse(String idCurso) {
+	public List<ResultadoAlumnos> findByCourse(String idCurso) {
 		// TODO Auto-generated method stub
 		return null;
 	}

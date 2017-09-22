@@ -13,7 +13,7 @@ public class Catedratico {
 
 	@Id
 	@GeneratedValue
-	@Column (name = "id_catedratico")
+	@Column (name = "id_catedratico") 
 	private Integer IdCatedratico;
 	@Column (name = "nombres")
 	private String nombres;

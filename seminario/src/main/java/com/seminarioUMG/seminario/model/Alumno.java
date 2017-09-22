@@ -30,18 +30,16 @@ public class Alumno {
 	private String apellidos;
 	@Column (name = "correo")
 	private String correo;
-	
-	 @OneToMany(fetch = FetchType.EAGER, mappedBy = "alumno")
-	 @JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "alumno")
+	@JsonManagedReference
 	private Set<AsignacionCursos> asignaciones;
-	@Column(name = "pagado")
-	private boolean pagado;
+	@Column(name = "entrada_pagada")
+	private Integer pagado;
 	
-	
-	public boolean isPagado() {
+	public Integer getPagado() {
 		return pagado;
 	}
-	public void setPagado(boolean pagado) {
+	public void setPagado(Integer pagado) {
 		this.pagado = pagado;
 	}
 	public String getNoCarnet() {
@@ -76,7 +74,7 @@ public class Alumno {
 	}
 	
 	public Alumno(String noCarnet, String nombres, String apellidos, String correo, Set<AsignacionCursos> asignaciones,
-			boolean pagado) {
+			Integer pagado) {
 		super();
 		NoCarnet = noCarnet;
 		this.nombres = nombres;

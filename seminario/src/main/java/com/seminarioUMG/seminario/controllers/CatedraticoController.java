@@ -30,6 +30,7 @@ import com.seminarioUMG.seminario.model.Curso;
 import com.seminarioUMG.seminario.model.Rol;
 import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.model.UserPermission;
+import com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos;
 import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.CatedraticoService;
 import com.seminarioUMG.seminario.services.CursosService;
@@ -63,18 +64,40 @@ public class CatedraticoController {
 	MailerCatedratico mailer;
 	
     @GetMapping(value = "/{idCurso}")
-    public ResponseEntity<List<Alumno>> getAlumnoandAsignaciones(@PathVariable String idCurso)  {
+    public ResponseEntity<List<ResultadoAlumnos>> getAlumnoandAsignaciones(@PathVariable String idCurso)  {
     	
     	try
     	{
-    		List<Alumno> alumno =  alumnoService.findByCourse(idCurso);
-    		return new ResponseEntity<List<Alumno>>(alumno, HttpStatus.OK);
+    		List<ResultadoAlumnos> alumno =  alumnoService.findByCourse(idCurso); 
+    		System.out.println(alumno.size());
+    		return new ResponseEntity<List<ResultadoAlumnos>>(alumno, HttpStatus.OK);
+
     	}
     		
     catch(Exception e) {
-		return new ResponseEntity<List<Alumno>>(HttpStatus.BAD_REQUEST);
+    	System.out.println(e);
+		return new ResponseEntity<List<ResultadoAlumnos>>(HttpStatus.BAD_REQUEST);
 	}
- 
+
+    }	
+    	
+    	
+        @GetMapping(value = "/allcatedraticos")
+        public ResponseEntity<List<Catedratico>> getAllCatedraicos()  {
+        	
+        	try
+        	{
+        		List<Catedratico> catedraticos =  catedraticoService.findAll();
+        	
+        		return new ResponseEntity<List<Catedratico>>(catedraticos, HttpStatus.OK);
+
+        	}
+        		
+        catch(Exception e) {
+        	System.out.println(e);
+    		return new ResponseEntity<List<Catedratico>>(HttpStatus.BAD_REQUEST);
+    	}
+    	
     	
     }
     @GetMapping(value ="/getCursosCatedratico/{idCatedratico}")

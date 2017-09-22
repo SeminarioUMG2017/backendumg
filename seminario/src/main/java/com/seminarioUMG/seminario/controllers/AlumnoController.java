@@ -278,7 +278,7 @@ public class AlumnoController {
     	if (alumno != null) {
     		apellido = 	alumno.getApellidos();
         	alumno.setCorreo(correo);
-        	alumno.setPagado(true);
+        	alumno.setPagado(1);;
         	alumnoService.save(alumno);
         	
         	CardexTesoreria tesoreria = new CardexTesoreria();
@@ -329,6 +329,8 @@ public class AlumnoController {
     
 
     	if (qrService.findOne(nocarnet) != null) {
+    		
+    		
     		
     		Alumno alumno = alumnoService.findOne(nocarnet);
     		
