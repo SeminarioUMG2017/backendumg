@@ -15,8 +15,7 @@ public class PasswordGenerator {
 	
 	public String genrar () {
 		String out = null;
-		char[] values1 = {'w','e','l','c','s','p','a','m','S','M','A','H','E','V'};
-	    char[] values2 = {'@','&','$','#','%','*'};
+		char[] values1 = {'w','e','j','c','s','p','a','m','S','M','A','H','E','V'};
 	    char[] values3 = {'1','2','3','4','5','6','7','8','9','0'};
 	    String out1="";
 	    String out2="";
@@ -28,17 +27,12 @@ public class PasswordGenerator {
 	            out1+= values1[idx];
 	            }
 	 
-	    for (int i=0;i<3;i++)
+	    for (int i=0;i<4;i++)
 	            {
 	            int idx=rand.nextInt(values3.length);
 	             out2+= values3[idx];
 	            }
-	 
-	    for (int i=0;i<1;i++)
-	            {
-	            int idx=rand.nextInt(values2.length);
-	             out3+= values2[idx];
-	            }
+
 	 
 	    out= out1.concat(out3).concat(out2);
 	    return out;
