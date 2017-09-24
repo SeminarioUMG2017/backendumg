@@ -117,7 +117,7 @@ public class CatedraticoController {
     
     
     @PostMapping(value = "/addusercatedratico")
-    public String CompradeTicket(@RequestParam String id_catedratico, @RequestParam String correo) throws IOException  {    
+    public String CompradeTicket(@RequestParam String id_catedratico, @RequestParam String correo, @RequestParam String idUsuario) throws IOException  {    
     	String nombre = null;
     	Catedratico catedratico = catedraticoService.findOne(Integer.parseInt(id_catedratico)); 
     	User user = new User();
@@ -137,6 +137,7 @@ public class CatedraticoController {
         	tesoreria.setFecha(date);
         	tesoreria.setMonto(100.00);
         	tesoreria.setTipo((long)1);
+        	tesoreria.setIdUsuario(Integer.parseInt(idUsuario));
         	
         	
          	

@@ -35,7 +35,17 @@ public class Alumno {
 	private Set<AsignacionCursos> asignaciones;
 	@Column(name = "entrada_pagada")
 	private Integer pagado;
+	@Column(name="telefono")
+	private String telefono;
 	
+	
+	
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 	public Integer getPagado() {
 		return pagado;
 	}
@@ -73,8 +83,9 @@ public class Alumno {
 		this.asignaciones = asignaciones;
 	}
 	
+
 	public Alumno(String noCarnet, String nombres, String apellidos, String correo, Set<AsignacionCursos> asignaciones,
-			Integer pagado) {
+			Integer pagado, String telefono) {
 		super();
 		NoCarnet = noCarnet;
 		this.nombres = nombres;
@@ -82,6 +93,7 @@ public class Alumno {
 		this.correo = correo;
 		this.asignaciones = asignaciones;
 		this.pagado = pagado;
+		this.telefono = telefono;
 	}
 	public Alumno() {
 		// TODO Auto-generated constructor stub

@@ -91,6 +91,8 @@ public class AlumnoController {
     }
     
     
+    
+    
     @PostMapping(value = "/changepassword")
     public String ChangePassword(@RequestBody Password password)  {
     	
@@ -182,8 +184,11 @@ public class AlumnoController {
     	
     }
     
+    
+    
+    
     @PostMapping(value = "/asignarcurso")
-    public ResponseEntity<String> AsignarCurso(@RequestParam String nocarnet, @RequestParam String idCurso){
+    public String AsignarCurso(@RequestParam String nocarnet, @RequestParam String idCurso){
 
     	AsignacionCursos asignacion = new AsignacionCursos();
     	
@@ -193,7 +198,18 @@ public class AlumnoController {
     	asignacion.setAlumno(alumno);    	
     	asignacionService.save(asignacion);
 
-    	return null;
+    	return "Curso asignado";
+    }
+    
+    
+    @PostMapping(value = "/confirmarCorreo")
+    public String ConfirmarCorreo(@RequestParam String nocarnet, @RequestParam String noTelefono){
+
+    	
+    	Alumno alumno = alumnoService.findOne(nocarnet);
+    	alumno.setTelefono(noTelefono);
+    	alumnoService.save(alumno);
+    	return "Correo confirmado";
     }
     
     
