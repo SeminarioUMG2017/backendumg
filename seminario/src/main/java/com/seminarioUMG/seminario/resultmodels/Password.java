@@ -4,7 +4,7 @@ public class Password {
 	
 	
 	private String actualpass;
-	private String nocarnet;
+	private String user;
 	private String newpass;
 	private String confirmpass;
 	
@@ -27,11 +27,11 @@ public class Password {
 	public void setActualpass(String actualpass) {
 		this.actualpass = actualpass;
 	}
-	public String getNocarnet() {
-		return nocarnet;
+	public String getUser() {
+		return user;
 	}
-	public void setNocarnet(String nocarnet) {
-		this.nocarnet = nocarnet;
+	public void setUser(String user) {
+		this.user = user;
 	}
-
+	
 }

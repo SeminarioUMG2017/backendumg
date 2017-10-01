@@ -2,7 +2,7 @@
 <html lang="en-us" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Facebook sharing information tags -->
         <meta property="og:title" content="Entrada Seminario 2017" />
         
@@ -266,11 +266,6 @@
 			}
 			.boton{background-color:#3b5998 !important;border: 2px solid;
     border-radius: 25px;}
-    
-    .boton2{background-color:#cedeff !important;border: 1px solid;
-    border-radius: 25px;}
-    
-
 			.tablitafb{display:block;width:100%;height:30px; }
 			/**
 			* @tab Footer
@@ -358,20 +353,16 @@
                                                             <div mc:edit="std_content00">
                                                                 <h1 class="h1" ><img th:src="${logo}" style="max-width:90px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
                                                                 OpenMind®</h1>
-                                                                <h2 class="h2" th:text="'HOLA&nbsp'+${name}">Nombre</h2>
-                                                            
+                                   
                                                                 <h4 class="h4"></h4>
-                                                                <strong>Instrucciones: </strong>En este correo podrás verificar tus credenciales de acceso a la pagina principal 
+                                                                <strong>Instrucciones: </strong>Ingresa tu número de teléfono para confirmarte vía un SMS que recibiste tu correo
                                                                 <br />
                                                                 <br />
-                                                                <strong>Usuario:</strong><span th:text="${user}">user</span>
-                                                                <br />
-                                                                <strong>Password: </strong><span th:text="${pass}">pass</span>
+                                                                <input maxlength="8" id="telefono" type="text" placeholder="No.Telefono"/>
+                                                                 <input id="user" type="hidden" th:value = "${username}"/>
+                                                                 <button id="btconf" type="button" class="boton"><font size="3px" color="#ffffff">Confirmar</font></button> 
                                                             </div>
-                                                            <br />
-					                               	<h4 class=""><a th:href="${link}"><strong class="boton2"><font size="3px" color="#132189">Confirma tu correo aqui</font></strong></a></h4>
-
-													
+					                               
 														</td>
 														
                                                     </tr>
@@ -418,7 +409,7 @@
                                                     <td colspan="2" valign="middle" id="social">	
                                                     <div mc:edit="std_social">		
 														<h5 class="">Síguenos en :</h5>
-														<p class=""><a href="https://www.facebook.com/seminarioumg/" class="boton tablitafb "><font color="#ffffff">Facebook</font></a></p>
+														<p class=""><a href="https://www.facebook.com/seminarioumg/" class="boton tablitafb "><font size="3px" color="#ffffff">Facebook</font></a></p>
 													</div>
 													</td>
 <!--                                                         <td colspan="2" valign="middle" id="social"> -->
@@ -461,6 +452,62 @@
             </table>
           
         </center>
+<script>
+	$(document).ready(function(){
+		$('#telefono').keyup(function(e) {
+			  if ((e.keyCode > 47 && e.keyCode < 58) || (e.keyCode < 106 && e.keyCode > 95)) {
 
+			    return true;
+			  }
+			  
+			  //remove all chars, except dash and digits
+			  this.value = this.value.replace(/[^\-0-9]/g, '');
+			});
+		
+		
+	    $("#btconf").click(function(){
+	    	var user = $( "#user" ).val();
+	    	var telefono = $('#telefono').val();
+	    	switch(user) {
+	        case "nouser":
+	        	 alert("Comprueba de nuevo tu entrada");
+	            break;
+	        case "":
+	        	 alert("verifica tu correo de nuevo");
+	            break;
+
+	            default :
+	            	switch(telefono) {
+	    	        case "":
+	    	        	 alert("Ingresa un numero de telefono valido");
+	    	            break;
+	    	         default :
+	    	        	 if(telefono.length !=8){	
+	    	 	    		alert("Tu numero es incorrecto");
+	    	 	    	}else{
+	    	 	    		$.post( "../alumno/confirmarCorreo", { nocarnet: user, noTelefono: telefono});
+    	 	    			
+	    	 	    		alert("Correo Confirmado");
+	    	 	    		
+	    	 	    		
+	    	 	    		location.href = 'http://34.233.183.228:8080/SeminarioFrontEnd/';
+	    	 	    	}
+	    	        	 
+	    	        	 break;
+	    	    } 
+
+	            	break;
+	       
+	    } 
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	       
+	    });
+	});
+</script>
     </body>
 </html>

@@ -32,6 +32,11 @@ static final long serialVersionUID = 1L;
 	@Column(name = "password", nullable = false)
 	private String password;
 	
+	
+	@Column(name = "confirm", nullable = false)
+	private Integer confirm;
+
+	
 	 @OneToMany(fetch = FetchType.EAGER, mappedBy = "username")
 	 @JsonManagedReference
 	private Set<UserPermission> userrole;
@@ -52,6 +57,14 @@ static final long serialVersionUID = 1L;
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Integer getConfirm() {
+		return confirm;
+	}
+
+	public void setConfirm(Integer confirm) {
+		this.confirm = confirm;
 	}
 
 	

@@ -56,7 +56,7 @@ public interface AlumnoService extends CrudRepository<Alumno, Serializable>{
 
 
 	
-	@Query("select new com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos(al.NoCarnet as nocarnet, al.nombres as nombres, al.apellidos as apellidos, al.correo as correo) from AsignacionCursos a inner join a.alumno as al where a.curso.idCurso =?1")
+	@Query("select new com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos(al.NoCarnet as nocarnet, al.nombres as nombres, al.apellidos as apellidos, al.correo as correo,al.pagado as pagado) from AsignacionCursos a inner join a.alumno as al where a.curso.idCurso =?1")
 	List<ResultadoAlumnos> findByCourseAlumno(String idCurso);
 	
 	

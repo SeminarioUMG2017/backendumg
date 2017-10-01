@@ -1,9 +1,10 @@
 package  com.seminarioUMG.seminario.controllers;
 
+
+
+
 import java.io.IOException;
-
-
-
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -11,6 +12,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.seminarioUMG.seminario.methods.GeneradorQr;
 import com.seminarioUMG.seminario.methods.Mailer;
 import com.seminarioUMG.seminario.methods.PasswordGenerator;
+import com.seminarioUMG.seminario.methods.SmsSender;
 import com.seminarioUMG.seminario.model.Alumno;
 import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.model.CardexTesoreria;
@@ -50,13 +54,13 @@ import com.seminarioUMG.seminario.services.UserRoleService;
 @RestController
 @RequestMapping(value = "/alumno")
 public class AlumnoController {
-	
+	 
 	@Autowired
-	AlumnoService alumnoService;  
+	AlumnoService alumnoService;    
 	@Autowired
-	Mailer mailer;
+	Mailer mailer; 
 	@Autowired
-	PasswordGenerator pass ;
+	PasswordGenerator pass ; 
 	@Autowired 
 	GeneradorQr generador;
 	@Autowired
@@ -74,6 +78,8 @@ public class AlumnoController {
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	UserRoleService userRoleService;
+	@Autowired
+	SmsSender smsSender;
 	
 	
 
@@ -88,47 +94,6 @@ public class AlumnoController {
     	}catch(Exception e) {
     		return new ResponseEntity<Alumno>(HttpStatus.BAD_REQUEST);
     	}
-    }
-    
-    
-    
-    
-    @PostMapping(value = "/changepassword")
-    public String ChangePassword(@RequestBody Password password)  {
-    	
-    String respuesta;
-    		try {
-    			
-    			User user = userRepo.findOneByUsername(password.getNocarnet());
-    			
-    			if (passwordEncoder.matches(password.getActualpass(), user.getPassword())) {
-    				System.out.println(password.getConfirmpass());
-    				System.out.println(password.getNewpass());		
-    				if(password.getNewpass().equals(password.getConfirmpass()) ) {
-    		
-    					user.setPassword(passwordEncoder.encode(password.getConfirmpass()));
-    					userRepo.save(user);
-    					respuesta = "Password Actualizado correctamente";
-    				}else {
-    					
-    					respuesta = "Nueva Password y Confirmacion no coinciden";
-    					 
-    				}
-    				
-    			} else {
-    				respuesta = "Password anterior no es correcto";
-    				
-    			}
-				
-			} catch (Exception e) {
-				respuesta = "Error al cambiar password";
-			}
-    	
-    	
-    	
-    	
-		return respuesta;     
-    	
     }
     
     
@@ -151,24 +116,7 @@ public class AlumnoController {
     		return "Error Actualizando Datos";
     	}
     }
-    
-
-    @GetMapping(value = "/getqrbyid")
-    public String getQrById(@RequestParam String nocarnet){
-    	
-    	
-    	Qr qr = qrService.getOne(nocarnet);
-    	if(qr != null) {
-    		
-    		String url =" http://34.233.183.228:8080/seminario/codigosqr/"+nocarnet+".png"; 
-    		return url;
-    	}else {
-    		return "no se encuentra la imagen";
-    	}
-
-    	
-    }
-    
+     
     @GetMapping(value = "/getqr")
     public List<Map<String,String>> getQrById2(@RequestParam String nocarnet){
     	Map<String,String> mapa = new HashMap<String, String>();
@@ -184,9 +132,7 @@ public class AlumnoController {
     	
     }
     
-    
-    
-    
+
     @PostMapping(value = "/asignarcurso")
     public String AsignarCurso(@RequestParam String nocarnet, @RequestParam String idCurso){
 
@@ -204,12 +150,25 @@ public class AlumnoController {
     
     @PostMapping(value = "/confirmarCorreo")
     public String ConfirmarCorreo(@RequestParam String nocarnet, @RequestParam String noTelefono){
-
-    	
+ 
+    	 
+    	String respuesta = null;
     	Alumno alumno = alumnoService.findOne(nocarnet);
-    	alumno.setTelefono(noTelefono);
-    	alumnoService.save(alumno);
-    	return "Correo confirmado";
+    	if(alumno != null || alumno.getPagado()== 0) {   
+    		
+    	   	if(alumno.getTelefono() == null	) {
+        	alumno.setTelefono(noTelefono);
+        	alumnoService.save(alumno);
+        	respuesta = "Correo confirmado para usuario  "+ nocarnet;
+        	String nombre = "Hola "+alumno.getNombres()+" tu correo esta confirmado, por favor no borres este mensaje.";
+        	smsSender.sender(numberVerificator(noTelefono),limpiarAcentos(nombre));
+    	   	}else {
+    	   		respuesta = "Ya esta verificado"+ nocarnet;	
+    	   	}
+    	}else {
+    		respuesta = "Verificar"+ nocarnet;	
+    	}
+    	return respuesta ;
     }
     
     
@@ -294,7 +253,7 @@ public class AlumnoController {
     	if (alumno != null) {
     		apellido = 	alumno.getApellidos();
         	alumno.setCorreo(correo);
-        	alumno.setPagado(1);;
+        	alumno.setPagado(1);
         	alumnoService.save(alumno);
         	
         	CardexTesoreria tesoreria = new CardexTesoreria();
@@ -313,11 +272,10 @@ public class AlumnoController {
         	try
         	{
         		String passw = pass.genrar();
-        		System.out.println(passwordEncoder.encode(passw));
         		generador.inicioQr(alumno.getApellidos(),alumno.getCorreo(), alumno.getNoCarnet());
         		mailer.executeMail(nocarnet,passw );
         		user.setUsername(alumno.getNoCarnet());
-        		
+        		user.setConfirm(0);
         		user.setPassword(passwordEncoder.encode(passw));
         		userRepo.save(user);
         		tesoreriaService.save(tesoreria);
@@ -338,41 +296,133 @@ public class AlumnoController {
     	
     }
 
+     
     
-    
-    @PostMapping(value = "/reloadmail")
+    @SuppressWarnings("unused")
+	@PostMapping(value = "/reloadmail")
     public String ReenvioPassword(@RequestParam String nocarnet) throws IOException  {    
     
-
+String respuesta = null;
     	if (qrService.findOne(nocarnet) != null) {
-    		
-    		
-    		
+
     		Alumno alumno = alumnoService.findOne(nocarnet);
     		
+    		System.out.println(alumno.getCorreo());
     		User user = userRepo.findOneByUsername(alumno.getNoCarnet());
         	try
-        	{
+        	{ 
+        		if(user != null) {
+        			
+        	
+        		
         		String passw = pass.genrar();
         		
         		mailer.executeMail(nocarnet,passw );
         		user.setPassword(passwordEncoder.encode(passw));
         		userRepo.save(user);
-   
+        		respuesta = "Realizado";
+        		
+        		}else { 
+        			respuesta = "Usuario no encontrado";
+        			
+        		}
         	
         	}catch(Exception e) {
         		 e.printStackTrace(); 
         	}
         		 
+    	}else {
+    		respuesta = "Usuario no encontrado";
     	}
-    	
-    	
-    	
-    	
-    	
-		return "Realizado"	;
+
+
+		return respuesta	;
     	
     }
     
+    
+	
+	
+	private String numberVerificator(String numero ) {
+		
+
+
+		numero = numero.replaceAll("\\s","");
+		numero = numero.replaceAll("[a-z]","");
+		numero = numero.replaceAll("[A-Z]","");
+		numero = numero.replaceAll("[\\@!\\$\\&\\/\\(\\)\\=\\?\\¡\\[\\]\\.\\:\\;\\}\\{]","");
+		numero = numero.replaceAll("\\-","");
+		numero = numero.replaceAll("\\_","");
+		numero = numero.replaceAll("\\.","");
+		numero = numero.replaceAll("\\*","");
+
+		int length = numero.length();
+		switch (length) {
+		case 12 :
+			Pattern pattern = Pattern.compile("[+]{1}+[502]{3}+[0-9]{8}");
+			Matcher matcher = pattern.matcher(numero);
+			boolean output = matcher.find();
+			if(output == true ){
+				numero = numero;
+			}else{
+				numero = "numero invalido";
+			}
+
+			
+			break;
+		case 11 :
+			Pattern pattern11 = Pattern.compile("[502]{3}+[0-9]{8}");
+			Matcher matcher11 = pattern11.matcher(numero);
+			boolean output11 = matcher11.find();
+			if(output11 == true ){
+				
+				numero = "+"+numero;
+			}else{
+				numero = "numero invalido";
+			}
+			
+			
+			
+			break;
+			
+		case 8 :
+			Pattern pattern8 = Pattern.compile("[0-9]{8}");
+			Matcher matcher8 = pattern8.matcher(numero);
+			boolean output8 = matcher8.find();
+			if(output8 == true ){
+				
+				numero = "+502"+numero;
+			}else{
+				numero = "numero invalido";
+			}
+			
+			
+			
+			break;
+
+		default:
+			
+			numero = "numero invalido";
+			
+			break;
+		}
+		return numero;
+	}
+	
+	public static String limpiarAcentos(String cadena) {
+	    String limpio =null;
+	    if (cadena !=null) {
+	        String valor = cadena;
+	        valor = valor.toUpperCase();
+	        limpio = Normalizer.normalize(valor, Normalizer.Form.NFD);
+	        limpio = limpio.replaceAll("[^\\p{ASCII}(N\u0303)(n\u0303)(\u00A1)(\u00BF)(\u00B0)(U\u0308)(u\u0308)]", "");
+	        limpio = Normalizer.normalize(limpio, Normalizer.Form.NFC);
+	    }
+	    return limpio;
+	}
+	
+	
+ 
+
     
 }

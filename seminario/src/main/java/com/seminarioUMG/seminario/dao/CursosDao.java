@@ -21,7 +21,7 @@ public class CursosDao  implements CursosService{
 	public void deleteAllInBatch() {
 		// TODO Auto-generated method stub
 		 
-	}
+	} 
 
 	@Override
 	public void deleteInBatch(Iterable<Curso> arg0) {

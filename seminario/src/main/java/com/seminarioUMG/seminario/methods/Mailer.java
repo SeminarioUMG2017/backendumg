@@ -112,7 +112,9 @@ public class Mailer {
      	    	System.out.println("Real  " +servletContext.getRealPath("/"));
      	    	System.out.println("Context "+servletContext.getContextPath());
      	    	ctxno.setVariable("qr","http://34.233.183.228:8080/seminario/codigosqr/"+nocarnet+".png");
-     	    	ctxno.setVariable("logo","http://34.233.183.228:8080/seminario/img/logo.jpg"); 
+     	    	ctxno.setVariable("logo","http://34.233.183.228:8080/seminario/img/logo.jpg");
+     	    	ctxno.setVariable("link","http://34.233.183.228:8080/seminario/confirm/"+nocarnet); 
+     	    	
      	    	
      	    
      	    	final String htmlContentno = this.templateEngine.process("email", ctxno);   	

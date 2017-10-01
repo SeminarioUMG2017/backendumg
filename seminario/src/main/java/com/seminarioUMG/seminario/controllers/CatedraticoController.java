@@ -148,8 +148,8 @@ public class CatedraticoController {
         		generador.inicioQr(catedratico.getApellidos(),catedratico.getCorreo(), catedratico.getIdCatedratico().toString());
         		mailer.executeMail(id_catedratico,passw );
         		user.setUsername(catedratico.getIdCatedratico().toString());
-        		
         		user.setPassword(passwordEncoder.encode(passw));
+        		user.setConfirm(0);
         		userRepo.save(user);
         		tesoreriaService.save(tesoreria);
         		userrole.setRoles(rol);

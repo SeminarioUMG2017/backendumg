@@ -5,7 +5,15 @@ public class ResultadoAlumnos {
 	private String nombres;
 	private String apellidos;
 	private String correo;
+	private Integer pagado;
+
 	
+	public Integer getPagado() {
+		return pagado;
+	}
+	public void setPagada(Integer pagado) {
+		this.pagado = pagado;
+	}
 	public String getCarnet() {
 		return nocarnet;
 	}
@@ -30,15 +38,18 @@ public class ResultadoAlumnos {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public ResultadoAlumnos(String nocarnet, String nombres, String apellidos, String correo) {
+	public ResultadoAlumnos(String nocarnet, String nombres, String apellidos, String correo, Integer pagado) {
 		super();
 		this.nocarnet = nocarnet;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
+		this.pagado = pagado;
 	}
 	public ResultadoAlumnos() {
+
 	}
+
 	
 	
 

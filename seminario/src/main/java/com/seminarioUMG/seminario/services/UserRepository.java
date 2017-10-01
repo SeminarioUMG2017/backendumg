@@ -22,6 +22,9 @@ import com.seminarioUMG.seminario.model.User;
 public interface UserRepository extends JpaRepository<User, Long>  {
 	
 	public final static String GET_ROLES_BY_USER = "select  rol.codigo_rol, rol.descripcion from users us inner join userroles uroles on us.username = uroles.username inner join rol rol on uroles.roles = rol.codigo_rol where us.username = :username";
+
+	public final static String GET_FIRST_LOGIN = "select us.confirm from users where us.username = :username";
+
 	
 	User findOneByUsername(String username);
 	
@@ -29,7 +32,8 @@ public interface UserRepository extends JpaRepository<User, Long>  {
 	
 	List<Rol> listRoles(@Param("username") String username);
 	
-	
+	@Query(value = GET_FIRST_LOGIN , nativeQuery = true)
+	Integer confirm(@Param("username") String username);	
 
 	
 }
