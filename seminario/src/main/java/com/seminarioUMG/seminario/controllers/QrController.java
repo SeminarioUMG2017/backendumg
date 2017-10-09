@@ -58,7 +58,7 @@ public class QrController {
 					 {
 						 
 						 
-						 if(!codigo.isRefaccion()==true)
+						 if(codigo.isRefaccion()==true)
 						 {
 							
 							 codigoValidacion = CODIGO_EXISTENTE;
