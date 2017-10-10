@@ -264,7 +264,7 @@ public class AlumnoController {
         	tesoreria.setDescripcion("Entrada vendida a: "+alumno.getNombres()+" "+ alumno.getApellidos());
         	Date date = Calendar.getInstance().getTime();
         	tesoreria.setFecha(date);
-        	tesoreria.setMonto(85.00);
+        	tesoreria.setMonto(80.00);
         	tesoreria.setTipo((long)1);
         	tesoreria.setIdUsuario(idUs);
         	

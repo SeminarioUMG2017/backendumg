@@ -31,6 +31,7 @@ import com.seminarioUMG.seminario.model.Rol;
 import com.seminarioUMG.seminario.model.User;
 import com.seminarioUMG.seminario.model.UserPermission;
 import com.seminarioUMG.seminario.resultmodels.ResultadoAlumnos;
+import com.seminarioUMG.seminario.resultmodels.ResultadoCatedratico;
 import com.seminarioUMG.seminario.services.AlumnoService;
 import com.seminarioUMG.seminario.services.CatedraticoService;
 import com.seminarioUMG.seminario.services.CursosService;
@@ -46,7 +47,7 @@ public class CatedraticoController {
 	@Autowired 
 	@Qualifier("CursosService")
 	CursosService cursoService;
-	@Autowired
+	@Autowired 
 	UserRoleService userRoleService;
 	@Autowired
 	CatedraticoService catedraticoService;
@@ -81,7 +82,49 @@ public class CatedraticoController {
 
     }	
     	
+
+    
+    
+    @GetMapping(value = "/getCourses")
+    public ResponseEntity<ResultadoCatedratico> getCourses(@RequestParam Integer idCatedratico)  {
     	
+    	try
+    	{
+    		Catedratico catedratico = catedraticoService.findOne(idCatedratico);
+    		ResultadoCatedratico result = new ResultadoCatedratico();
+    		result.setApellidos(catedratico.getApellidos());
+    		result.setCorreo(catedratico.getCorreo());
+    		result.setIdCatedratico(catedratico.getIdCatedratico());
+    		result.setNombres(catedratico.getNombres());
+    		 
+    		
+    		List<Curso> cursos  = catedraticoService.getCourses(idCatedratico);
+    		
+    		result.setCursos(cursos);
+    		
+    		
+   
+    		return new ResponseEntity<ResultadoCatedratico>(result, HttpStatus.OK); 
+
+    	}
+    		
+    catch(Exception e) {
+    	System.out.println(e);
+		return new ResponseEntity<ResultadoCatedratico>(HttpStatus.BAD_REQUEST);
+	}
+
+    }	
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         @GetMapping(value = "/allcatedraticos")
         public ResponseEntity<List<Catedratico>> getAllCatedraicos()  {
         	
@@ -103,7 +146,7 @@ public class CatedraticoController {
     @GetMapping(value ="/getCursosCatedratico/{idCatedratico}")
     public ResponseEntity<List<Curso>> getCursosCatedratico(@PathVariable("idCatedratico") String catedratico)
     {
-    	System.out.println("Carnet catedratico "+catedratico);
+ 
     	try
     	{
     		Integer idCatedratico = Integer.parseInt(catedratico);
