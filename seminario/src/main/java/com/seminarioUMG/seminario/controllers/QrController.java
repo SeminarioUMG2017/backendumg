@@ -1,15 +1,13 @@
 package com.seminarioUMG.seminario.controllers;
 
 import java.io.BufferedWriter;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,9 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,9 +32,10 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.seminarioUMG.seminario.model.Alumno;
-import com.seminarioUMG.seminario.model.CardexTesoreria;
+import com.seminarioUMG.seminario.model.Diplomas;
 import com.seminarioUMG.seminario.model.Qr;
 import com.seminarioUMG.seminario.services.AlumnoService;
+import com.seminarioUMG.seminario.services.DiplomaService;
 import com.seminarioUMG.seminario.services.QrService;
 
 @RestController
@@ -49,15 +46,19 @@ public class QrController {
 	private final String CODIGO_EXISTENTE = "Estado ya ingresado";
 	private final String CODIGO_NO_EXISTE = "Codigo no registrado en base de datos";
 	private final String CODIGO_NO_INGRESO = "Codigo no registro ingreso a evento";
+	
 	@Autowired QrService servicio;
-	@Autowired
-	AlumnoService alumnoService; 
+	
+	@Autowired AlumnoService alumnoService; 
+	
+	@Autowired DiplomaService diplomaService;
+	
 	@Value("${ruta.diplomas}") String rutaDiploma;
 	@PostMapping(value = "/updateQr")
 	public @ResponseBody String updateQr(@RequestBody Qr qr) {
 		 String codigoValidacion = "";
 		 try {
-			
+			 LOG.info("RUTA DE ARCHIVO "+rutaDiploma);
 			 if(qr.getCadena()!= null)
 			 {
 				 Qr codigo = servicio.findByCadena(qr.getCadena());
@@ -140,7 +141,8 @@ public class QrController {
 		
 		
 			LOG.info("ruta "+rutaDiploma);
-			File archivo = new File(rutaDiploma+"Diploma"+alumno.getNoCarnet()+".pdf");
+			String ruta = rutaDiploma+"Diploma"+alumno.getNoCarnet()+".pdf";
+			File archivo = new File(ruta);
 			BufferedWriter bw;
 			if(archivo.exists()) {
 			      bw = new BufferedWriter(new FileWriter(archivo));
@@ -149,10 +151,8 @@ public class QrController {
 			     
 			}
 		  	Document document = new Document(PageSize.A4);
-	        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(rutaDiploma+"Diploma"+alumno.getNoCarnet()+".pdf"));
+	        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(ruta));
 	        document.open();
-	        float width = document.getPageSize().getWidth();
-	        float height = document.getPageSize().getHeight();
 	        Paragraph p= new Paragraph(alumno.getNombres()+" "+alumno.getApellidos(), new Font(FontFamily.HELVETICA, 22));
 	        Paragraph pEspacio= new Paragraph(" ", new Font(FontFamily.HELVETICA, 22));
 	        p.setAlignment(Element.ALIGN_CENTER);
@@ -174,6 +174,12 @@ public class QrController {
 	        image.setAbsolutePosition(0, 0);
 	        canvas.addImage(image);
 	        document.close();
+	        
+	        Diplomas diploma = new Diplomas();
+	        diploma.setNoCarnet(alumno.getNoCarnet());
+	        diploma.setRuta(ruta);
+	        diploma.setFecha(new Date());
+	        diplomaService.save(diploma);
 		
 	}
 	
