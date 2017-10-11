@@ -31,8 +31,6 @@ public class AsignacionCursos {
 		@JsonBackReference
 		private Alumno alumno;
 		
-		
-		
 	
 		public Integer getCorrelativo() {
 			return Correlativo;

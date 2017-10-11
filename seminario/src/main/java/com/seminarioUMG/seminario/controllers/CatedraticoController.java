@@ -1,9 +1,12 @@
 package com.seminarioUMG.seminario.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -94,13 +97,30 @@ public class CatedraticoController {
     		ResultadoCatedratico result = new ResultadoCatedratico();
     		result.setApellidos(catedratico.getApellidos());
     		result.setCorreo(catedratico.getCorreo());
-    		result.setIdCatedratico(catedratico.getIdCatedratico());
+    		result.setNoCarnet(catedratico.getIdCatedratico());
     		result.setNombres(catedratico.getNombres());
-    		 
+    		
+    		List<Map<String, Curso>> listcursos = new ArrayList <Map<String, Curso>>();
     		
     		List<Curso> cursos  = catedraticoService.getCourses(idCatedratico);
     		
-    		result.setCursos(cursos);
+    		for (Curso cu : cursos) {
+    			
+    			Map<String , Curso> mapcurso = new HashMap<String , Curso>();
+    			
+    			mapcurso.put("curso", cu);
+    			listcursos.add(mapcurso);
+    			
+    			
+    		}
+    		
+ ;
+    	
+    				List<List<Map<String, Curso>>> jsoncursos = new ArrayList <List<Map<String, Curso>>>();	
+    				
+    				
+    				jsoncursos.add(listcursos);
+    		result.setAsignaciones(jsoncursos);  
     		
     		
    
@@ -109,7 +129,7 @@ public class CatedraticoController {
     	}
     		
     catch(Exception e) {
-    	System.out.println(e);
+    	System.out.println(e); 
 		return new ResponseEntity<ResultadoCatedratico>(HttpStatus.BAD_REQUEST);
 	}
 

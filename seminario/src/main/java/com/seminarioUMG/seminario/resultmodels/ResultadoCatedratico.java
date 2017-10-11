@@ -1,9 +1,10 @@
 package com.seminarioUMG.seminario.resultmodels;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
-
+import com.seminarioUMG.seminario.model.AsignacionCursos;
 import com.seminarioUMG.seminario.model.Curso;
 
 
@@ -11,16 +12,17 @@ import com.seminarioUMG.seminario.model.Curso;
 public class ResultadoCatedratico {
 	
 	
-	private Integer IdCatedratico;
+	private Integer noCarnet;
 	private String nombres;
 	private String apellidos; 
 	private String correo;
-	private List<Curso> cursos;
-	public Integer getIdCatedratico() {
-		return IdCatedratico;
+	private List<List<Map<String,Curso>>> asignaciones;
+	
+	public Integer getNoCarnet() {
+		return noCarnet;
 	}
-	public void setIdCatedratico(Integer idCatedratico) {
-		IdCatedratico = idCatedratico;
+	public void setNoCarnet(Integer noCarnet) {
+		this.noCarnet = noCarnet;
 	}
 	public String getNombres() {
 		return nombres;
@@ -40,12 +42,13 @@ public class ResultadoCatedratico {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public List<Curso> getCursos() {
-		return cursos;
+	public List<List<Map<String, Curso>>> getAsignaciones() {
+		return asignaciones;
 	}
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
+	public void setAsignaciones(List<List<Map<String, Curso>>> asignaciones) {
+		this.asignaciones = asignaciones;
 	}
+
 	
 	
 	
