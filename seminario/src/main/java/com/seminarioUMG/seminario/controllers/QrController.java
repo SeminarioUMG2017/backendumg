@@ -41,7 +41,7 @@ import com.seminarioUMG.seminario.services.QrService;
 @RestController
 public class QrController {
 	private static Logger LOG = LoggerFactory.getLogger(QrController.class);
-	 public static final String IMAGE = "src/main/resources/static/diplomavertical.jpg";
+	 public static final String IMAGE = "src/main/resources/static/diplomaReal.jpg";
 	private final String CODIGO_ACTUALIZADO = "Codigo Actualizado";
 	private final String CODIGO_EXISTENTE = "Estado ya ingresado";
 	private final String CODIGO_NO_EXISTE = "Codigo no registrado en base de datos";
@@ -103,7 +103,7 @@ public class QrController {
 							
 							 if(codigo.isDiploma()!= true && codigo.isIngreso()==true)
 							 {
-								 codigo.setDiploma(true);
+//								 codigo.setDiploma(true);
 								 List<Alumno> alumno =alumnoService.findBylikeCarnet(codigo.getNoCarnet());
 								 crearDiploma(alumno.get(0));
 								 codigoValidacion = CODIGO_ACTUALIZADO;
@@ -153,9 +153,12 @@ public class QrController {
 		  	Document document = new Document(PageSize.A4);
 	        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(ruta));
 	        document.open();
-	        Paragraph p= new Paragraph(alumno.getNombres()+" "+alumno.getApellidos(), new Font(FontFamily.HELVETICA, 22));
+	        Paragraph pnombre= new Paragraph("                "+alumno.getNombres(), new Font(FontFamily.HELVETICA, 25));
+	        Paragraph papellido= new Paragraph("               "+alumno.getApellidos(), new Font(FontFamily.HELVETICA, 25));
 	        Paragraph pEspacio= new Paragraph(" ", new Font(FontFamily.HELVETICA, 22));
-	        p.setAlignment(Element.ALIGN_CENTER);
+	        Paragraph pEspacio11= new Paragraph(" ", new Font(FontFamily.HELVETICA, 11));
+	        pnombre.setAlignment(Element.ALIGN_CENTER);
+	        papellido.setAlignment(Element.ALIGN_CENTER);
 	        document.add(pEspacio);
 	        document.add(pEspacio);
 	        document.add(pEspacio);
@@ -164,7 +167,11 @@ public class QrController {
 	        document.add(pEspacio);
 	        document.add(pEspacio);
 	        document.add(pEspacio);
-	        document.add(p);
+	        document.add(pEspacio);
+	        document.add(pEspacio);
+	        document.add(pEspacio11);
+	        document.add(pnombre);
+	        document.add(papellido);
 	        
 	      
 	        PdfContentByte canvas = writer.getDirectContentUnder();
