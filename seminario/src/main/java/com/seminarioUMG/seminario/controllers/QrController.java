@@ -103,7 +103,7 @@ public class QrController {
 							
 							 if(codigo.isDiploma()!= true && codigo.isIngreso()==true)
 							 {
-//								 codigo.setDiploma(true);
+								 codigo.setDiploma(true);
 								 List<Alumno> alumno =alumnoService.findBylikeCarnet(codigo.getNoCarnet());
 								 crearDiploma(alumno.get(0));
 								 codigoValidacion = CODIGO_ACTUALIZADO;
